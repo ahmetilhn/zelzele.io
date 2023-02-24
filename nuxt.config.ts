@@ -18,7 +18,6 @@ export default defineNuxtConfig({
   plugins: [
     {
       src: "@/plugins/dayjs.plugin.ts",
-      mode: "server",
     },
   ],
 });

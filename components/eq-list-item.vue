@@ -19,7 +19,6 @@
   </article>
 </template>
 <script setup lang="ts">
-import { switchCase } from "@babel/types";
 import AllEqChart from "./all-eq-chart.vue";
 import EQInterface from "~~/interfaces/eq.interface";
 import { setHours } from "~~/utils/date.util";
