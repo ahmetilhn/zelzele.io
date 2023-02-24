@@ -1,13 +1,14 @@
 <template>
-    <div class="index" vertical-center>
-        <EqList/>
+    <div class="eq-list" vertical-center>
+        <EqListItem/>
     </div>
 </template>
 <script setup lang="ts">
-import EqList from '~~/components/eq-list.vue';
+import EqListItem from './eq-list-item.vue';
 </script>
+
 <style lang="scss" scoped>
-.index {
+.eq-list {
     width: 100%;
 }
 </style>

@@ -9,5 +9,5 @@ export default defineNuxtConfig({
           },
         },
     },
-    css: ["@/assets/scss/global.scss", "@/assets/scss/fonts.scss"]
+    css: ["@/assets/scss/global.scss", "@/assets/scss/fonts.scss", "@/assets/scss/align.scss"]
 })
