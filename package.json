@@ -8,6 +8,11 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@nuxtjs/style-resources": "^1.2.1",
     "nuxt": "^3.2.2"
+  },
+  "dependencies": {
+    "sass": "^1.58.3",
+    "sass-loader": "^13.2.0"
   }
 }
