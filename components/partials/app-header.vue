@@ -5,12 +5,14 @@
         <span>zelzele.io</span>
       </div>
       <div class="date">
-        <span><strong>24 Şubat</strong> 2023</span>
+        <span>{{ $dayjs().format("MMMM D, YYYY") }}</span>
       </div>
     </div>
   </header>
 </template>
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const { $dayjs } = useNuxtApp();
+</script>
 <style lang="scss" scoped>
 .header {
   width: 100vw;
