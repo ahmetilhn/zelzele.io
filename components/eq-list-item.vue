@@ -14,7 +14,7 @@
       </div>
     </div>
     <div class="eq-item__right">
-      <AllEqChart :magnitude="getMagnitudeVal" />
+      <AllEqChart :magnitude-val="getMagnitudeVal" />
     </div>
   </article>
 </template>
@@ -30,6 +30,7 @@ interface Props {
 const { data } = defineProps<Props>();
 const { $dayjs } = useNuxtApp();
 const dateFromNow = $dayjs(setHours(new Date(data.Time), 3)).from(new Date());
+
 const { city, district } = (() => {
   const city = data.Region.split("-")[1];
   const district = data.Region.split("-")[0];

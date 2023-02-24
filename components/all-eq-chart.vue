@@ -1,5 +1,5 @@
 <template>
-  <svg class="chart" :class="magnitude" view-box="0 0 20 100">
+  <svg class="chart" :class="magnitudeVal" view-box="0 0 20 100">
     <line x1="0" y1="10" x2="40" y2="20" />
     <line x1="40" y1="20" x2="80" y2="10" />
     <line x1="80" y1="10" x2="120" y2="30" />
@@ -9,9 +9,10 @@
 
 <script lang="ts" setup>
 interface Props {
-  magnitude: string;
+  magnitudeVal: string;
 }
-const { magnitude } = defineProps<Props>();
+
+const { magnitudeVal } = defineProps<Props>();
 </script>
 
 <style lang="scss" scoped>
