@@ -5,7 +5,9 @@
         {{ data.Magnitude }}
       </h3>
       <div class="content" vertical-center>
-        <h3 class="city">{{ city }}</h3>
+        <h3 class="city">
+          {{ city || district.split(" ")[0].split("/")[1] || district }}
+        </h3>
         <h4 class="district">{{ district }}</h4>
         <h6 class="short-detail">
           {{ data.Depth }} km, {{ $dayjs().format("DD/MM/YYYY") }} ,
@@ -14,7 +16,10 @@
       </div>
     </div>
     <div class="eq-item__right">
-      <AllEqChart :magnitude-val="getMagnitudeVal" />
+      <AllEqChart
+        :magnitude-val="getMagnitudeVal"
+        :all-time-data="allTimeData"
+      />
     </div>
   </article>
 </template>
@@ -25,8 +30,9 @@ import { setHours } from "~~/utils/date.util";
 import magnitudeConstants from "~~/constants/magnitude.constants";
 interface Props {
   data: EQInterface;
+  allTimeData: Array<EQInterface> | undefined;
 }
-const { data } = defineProps<Props>();
+const { data, allTimeData } = defineProps<Props>();
 const { $dayjs } = useNuxtApp();
 const dateFromNow = $dayjs(setHours(new Date(data.Time), 3)).from(new Date());
 
@@ -106,7 +112,8 @@ const getMagnitudeVal = ((): string => {
     }
   }
   &__right {
-    margin-right: 30px;
+    margin-right: 20px;
+    height: 60px;
   }
 }
 </style>

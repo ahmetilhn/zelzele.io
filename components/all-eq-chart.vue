@@ -1,18 +1,59 @@
 <template>
   <svg class="chart" :class="magnitudeVal" view-box="0 0 20 100">
-    <line x1="0" y1="10" x2="40" y2="20" />
-    <line x1="40" y1="20" x2="80" y2="10" />
-    <line x1="80" y1="10" x2="120" y2="30" />
-    <line x1="120" y1="30" x2="160" y2="20" />
+    <line
+      v-for="data in chartData"
+      :key="data.x1"
+      :x1="data.x1"
+      :y1="data.y1"
+      :x2="data.x2"
+      :y2="data.y2"
+    />
   </svg>
 </template>
 
 <script lang="ts" setup>
+import EQInterface from "~~/interfaces/eq.interface";
+const maxMagnitude = 9.5;
 interface Props {
   magnitudeVal: string;
+  allTimeData: Array<EQInterface> | undefined;
 }
+type ChartLineData = {
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
+};
+const { magnitudeVal, allTimeData } = defineProps<Props>();
 
-const { magnitudeVal } = defineProps<Props>();
+const chart = {
+  height: 60,
+  width: 160,
+};
+const chartData = ref<Array<ChartLineData>>([]);
+const getChartData = () => {
+  let oldX = 0;
+  let oldY = chart.height / 2;
+  allTimeData?.reverse()?.forEach((item: EQInterface, index) => {
+    console.log({
+      şiddet: item.Magnitude,
+      past: allTimeData,
+    });
+    const y = (item.Magnitude / maxMagnitude) * chart.height;
+    const x = (chart.width / allTimeData.length) * (index + 1);
+    chartData.value.push({
+      x1: oldX,
+      y1: oldY,
+      x2: x,
+      y2: y,
+    });
+    oldY = y;
+    oldX = x;
+  });
+};
+onMounted(() => {
+  getChartData();
+});
 </script>
 
 <style lang="scss" scoped>
@@ -22,17 +63,18 @@ const { magnitudeVal } = defineProps<Props>();
   }
 }
 .chart {
-  width: 150px;
-  height: 36px;
+  width: 160px;
+  height: 60px;
   line {
     stroke-width: 2px;
     stroke-dasharray: 1000;
     stroke-dashoffset: 1000;
     animation: dashEffect 10s forwards;
+    stroke-linecap: round;
   }
   &.little {
     line {
-      stroke: $gray-three;
+      stroke: $dark;
     }
   }
   &.medium {
