@@ -1,7 +1,7 @@
 <template>
-    <article class="eq-item" horizontal-center>
+    <article class="eq-item" :class="getMagnitudeVal" horizontal-center>
         <div class="eq-item__left" horizontal-center>
-            <h3 class="magnitude" vertical-center>{{ data.Magnitude }}</h3>
+            <h3 class="magnitude" :class="getMagnitudeVal" vertical-center>{{ data.Magnitude }}</h3>
             <div class="content" vertical-center>
                 <h3 class="city">{{ city }}</h3>
                 <h4 class="district">{{ district }}</h4>
@@ -9,14 +9,16 @@
             </div>
         </div>
         <div class="eq-item__right">
-            <AllEqChart/>
+            <AllEqChart :magnitude="getMagnitudeVal"/>
         </div>
     </article>
 </template>
 <script setup lang="ts">
+import { switchCase } from '@babel/types';
 import AllEqChart from './all-eq-chart.vue';
 import EQInterface from '~~/interfaces/eq.interface';
 import { setHours } from "~~/utils/date.util"
+import magnitudeConstants from "~~/constants/magnitude.constants"
 interface Props {
     data: EQInterface
 }
@@ -29,27 +31,56 @@ const { city, district } = (() => {
     return {
         city,
         district
-    }
+}
 })()
-
+const getMagnitudeVal = ((): string => {
+   if(data.Magnitude < magnitudeConstants.LITTLE.limit) {
+        return magnitudeConstants.LITTLE.value
+   }
+   else if(data.Magnitude < magnitudeConstants.MEDIUM.limit){
+    return magnitudeConstants.MEDIUM.value
+   }
+   else {
+    return magnitudeConstants.MUCH.value
+   }
+})()
 </script>
 <style lang="scss" scoped>
 .eq-item {
     width: 100%;
     height: 160px;
-    background: linear-gradient(90deg, $white 0%, #eeeeee 100%);
     justify-content: space-between;
     margin: 10px 0;
     border-radius: 10px;
+    &.little {
+        background: linear-gradient(90deg, $white 0%, $gray-one 100%);
+    }
+    &.medium {
+        background: linear-gradient(90deg, $white 0%, $orange-light 100%);
+    }
+    &.much {
+        background: linear-gradient(90deg, $white 0%, $red-light 100%);
+    }
    &__left {
     .magnitude {
         width: 80px;
         height: 80px;
-        background-color: $gray-one;
         color: $white;
         font-size: 20px;
         font-weight: bold;
         border-radius: 10px;
+        &.little {
+            background-color: $gray-one;
+            color: $dark;
+        }
+        &.medium {
+            background-color: $orange-light;
+            color: $orange;
+        }
+        &.much {
+            background-color: $red-light;
+            color: $red;
+        }
     }
     .content {
         align-items: flex-start;
