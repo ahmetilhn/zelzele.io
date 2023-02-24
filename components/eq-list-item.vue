@@ -5,7 +5,7 @@
             <div class="content" vertical-center>
                 <h3 class="city">{{ city }}</h3>
                 <h4 class="district">{{ district }}</h4>
-                <h6 class="short-detail">7.04 km, 17.54, 17 Dakika önce</h6>
+                <h6 class="short-detail">{{ data.Depth }} km, {{ $dayjs().format('DD/MM/YYYY')}} , <strong>{{ dateFromNow }}</strong> </h6>
             </div>
         </div>
         <div class="eq-item__right">
@@ -16,11 +16,13 @@
 <script setup lang="ts">
 import AllEqChart from './all-eq-chart.vue';
 import EQInterface from '~~/interfaces/eq.interface';
+import { setHours } from "~~/utils/date.util"
 interface Props {
     data: EQInterface
 }
 const {data} =  defineProps<Props>()
-
+const { $dayjs } = useNuxtApp();
+const dateFromNow = $dayjs(setHours(new Date(data.Time), 3)).from(new Date())
 const { city, district } = (() => {
     const city = data.Region.split("-")[1]
     const district = data.Region.split("-")[0]
@@ -63,6 +65,9 @@ const { city, district } = (() => {
             color: $gray-two;
             font-size: 13px;
             font-weight: normal;
+            strong {
+                color: $gray-three;
+            }
         }
     }
    }

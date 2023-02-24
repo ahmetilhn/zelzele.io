@@ -9,5 +9,9 @@ export default defineNuxtConfig({
           },
         },
     },
-    css: ["@/assets/scss/global.scss", "@/assets/scss/fonts.scss", "@/assets/scss/align.scss", "@/assets/scss/typography.scss"]
+    css: ["@/assets/scss/global.scss", "@/assets/scss/fonts.scss", "@/assets/scss/align.scss", "@/assets/scss/typography.scss"],
+    plugins: [{
+        src: "@/plugins/dayjs.plugin.ts",
+        mode: "server"
+    }]
 })
