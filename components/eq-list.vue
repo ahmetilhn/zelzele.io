@@ -1,6 +1,6 @@
 <template>
     <div class="eq-list" vertical-center>
-        <EqListItem/>
+        <EqListItem v-for="(item, key) in 10" :key="key"/>
     </div>
 </template>
 <script setup lang="ts">

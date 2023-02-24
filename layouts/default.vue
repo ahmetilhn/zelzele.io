@@ -1,5 +1,5 @@
 <template>
-    <main class="layout">
+    <main class="layout" vertical-center>
         <AppHeader/>
         <div class="layout__content">
             <slot/>

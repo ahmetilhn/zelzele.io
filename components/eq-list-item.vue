@@ -1,6 +1,6 @@
 <template>
     <article class="eq-item" horizontal-center>
-        <h3 class="eq-item__magnitude">1.2</h3>
+        <h3 class="eq-item__magnitude" vertical-center>1.2</h3>
         <div class="eq-item__content" vertical-center>
             <h3 class="city">İstanbul</h3>
             <h4 class="district">Çamlıca</h4>
@@ -13,8 +13,26 @@
 <style lang="scss" scoped>
 .eq-item {
     width: 100%;
-    height: 120px;
-    background: linear-gradient(90deg, $dark 0%, #ffffff21 100%);
-    
+    height: 160px;
+    background: linear-gradient(90deg, $white 0%, #eeeeee 100%);
+    justify-content: flex-start;
+    margin: 10px 0;
+    border-radius: 10px;
+    &__magnitude {
+        width: 80px;
+        height: 80px;
+        background-color: $gray-one;
+        color: $white;
+        font-size: 20px;
+        font-weight: bold;
+        border-radius: 10px;
+    }
+    &__content {
+        align-items: flex-start;
+        height: 80px;
+        justify-content: space-between;
+        margin-left: 20px;
+        padding: 5px 0;
+    }
 }
 </style>
