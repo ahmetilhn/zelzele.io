@@ -32,7 +32,16 @@
         height: 80px;
         justify-content: space-between;
         margin-left: 20px;
-        padding: 5px 0;
+        padding: 2px 0;
+        .district {
+            color: $gray-three;
+            font-size: 16px;
+        }
+        .short-detail {
+            color: $gray-two;
+            font-size: 13px;
+            font-weight: normal;
+        }
     }
 }
 </style>
