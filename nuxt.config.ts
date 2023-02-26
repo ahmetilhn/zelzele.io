@@ -23,7 +23,6 @@ export default defineNuxtConfig({
   ],
   modules: ["@pinia/nuxt"],
   app: {
-    buildAssetsDir: "/assetsDir/",
     head: {
       charset: "utf-16",
       viewport: "initial-scale=1",
@@ -44,7 +43,7 @@ export default defineNuxtConfig({
         },
         {
           name: "msapplication-TileImage",
-          content: "/assetsDir/meta/ms-icon-144x144.png",
+          content: "/ms-icon-144x144.png",
         },
         {
           name: "theme-color",
@@ -55,35 +54,35 @@ export default defineNuxtConfig({
         {
           rel: "apple-touch-icon",
           sizes: "57x57",
-          href: "/assetsDir/meta/apple-icon-57x57.png",
+          href: "/apple-icon-57x57.png",
         },
         {
           rel: "manifest",
-          href: "/assetsDir/meta/manifest.json",
+          href: "/manifest.json",
         },
         {
           rel: "icon",
           type: "image/png",
           sizes: "16x16",
-          href: "/assetsDir/meta/favicon-16x16.png",
+          href: "/favicon-16x16.png",
         },
         {
           rel: "icon",
           type: "image/png",
           sizes: "96x96",
-          href: "/assetsDir/meta/favicon-96x96.png",
+          href: "/favicon-96x96.png",
         },
         {
           rel: "icon",
           type: "image/png",
           sizes: "32x32",
-          href: "/assetsDir/meta/favicon-32x32.png",
+          href: "/favicon-32x32.png",
         },
         {
           rel: "icon",
           type: "image/png",
           sizes: "192x192",
-          href: "/assetsDir/meta/android-icon-192x192.png",
+          href: "/android-icon-192x192.png",
         },
       ],
     },
