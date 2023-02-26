@@ -78,7 +78,6 @@ const getMagnitudeVal = ((): string => {
 })();
 const chartStyle = computed(() => {
   if (process.client) {
-    console.log(isMobile());
     return {
       modal: {
         width: isMobile() ? window?.innerWidth - 50 : 420,
