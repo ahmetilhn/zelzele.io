@@ -83,7 +83,7 @@ const chartStyle = computed(() => {
         width: isMobile() ? window?.innerWidth - 50 : 420,
       },
       listing: {
-        width: isMobile() ? 110 : 240,
+        width: isMobile() ? 130 : 240,
         height: isMobile() ? 70 : 100,
       },
     };
@@ -121,8 +121,8 @@ const closeChartDetailModalHandler = () => {
       width: 80px;
       height: 80px;
       @include small-device {
-        width: 54px;
-        height: 54px;
+        width: 60px;
+        height: 60px;
         border-radius: 6px;
       }
       color: $white;
@@ -145,25 +145,28 @@ const closeChartDetailModalHandler = () => {
     .content {
       align-items: flex-start;
       height: 80px;
-      justify-content: space-between;
+      justify-content: space-around;
       margin-left: 20px;
       padding: 2px 0;
       @include small-device {
+        justify-content: space-between;
         height: 60px;
         margin-left: 10px;
       }
       .city {
+        font-size: 20px;
+        line-height: 20px;
         @include small-device {
           font-size: 16px;
-          line-height: 20px;
+          font-size: 18px;
         }
       }
       .district {
         color: $gray-three;
-        font-size: 16px;
+        font-size: 14px;
         @include small-device {
-          font-size: 14px;
-          line-height: 14px;
+          font-size: 12px;
+          line-height: 13px;
         }
       }
       .short-detail {
