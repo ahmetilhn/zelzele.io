@@ -5,10 +5,8 @@
       :style="{ transform: 'translateX(' + (indicatorData.x - 40) + 'px)' }"
       class="chart-tooltip"
     >
-      <div class="content">
-        {{ $dayjs(indicatorData.EQData.Time).format("MMMM D, YYYY") }} <br />
-        <strong>{{ indicatorData.EQData.Magnitude }}</strong>
-      </div>
+      {{ $dayjs(indicatorData.EQData.Time).format("MMMM D, YYYY") }} <br />
+      <strong>{{ indicatorData.EQData.Magnitude }}</strong>
     </Tooltip>
     <svg
       :width="width"
@@ -30,7 +28,6 @@
           :data-id="data.id"
         />
       </g>
-
       <g
         v-if="isIndicatorVisible"
         class="indicator"
@@ -45,7 +42,8 @@
 <script lang="ts" setup>
 import EQInterface from "~~/interfaces/eq.interface";
 import Tooltip from "~~/components/tooltip.vue";
-const maxMagnitude = 9.5;
+import { MAX_MAGNITUDE_INTENSITY } from "~~/constants/magnitude.constants";
+import { LineType } from "~~/types/chart.type";
 interface Props {
   magnitudeVal: string;
   allTimeData: Array<EQInterface> | undefined;
@@ -53,27 +51,20 @@ interface Props {
   height: number;
   isIndicatorVisible: boolean;
 }
-type ChartLineData = {
-  x1: number;
-  y1: number;
-  x2: number;
-  y2: number;
-  id: string;
-};
 const { magnitudeVal, allTimeData, height, width, isIndicatorVisible } =
   defineProps<Props>();
 const emit = defineEmits(["openChartDetailModal"]);
-const chartData = ref<Array<ChartLineData>>([]);
 const { $dayjs } = useNuxtApp();
+const chartData = ref<Array<LineType>>([]);
 const indicatorData = ref({
   x: 0,
-  EQData: allTimeData[0] as EQInterface | undefined,
+  EQData: allTimeData[0] || ({} as EQInterface | undefined),
 });
 const getChartData = () => {
   let oldX = 0;
   let oldY: number;
   allTimeData?.reverse()?.forEach((item: EQInterface, index) => {
-    const y = height - (item.Magnitude / maxMagnitude) * height;
+    const y = height - (item.Magnitude / MAX_MAGNITUDE_INTENSITY) * height;
     if (index === 0) oldY = y;
     const x = (width / allTimeData.length) * (index + 1);
     chartData.value.push({
@@ -91,9 +82,9 @@ const indicatorMove = (e: MouseEvent) => {
   indicatorData.value.x = e.offsetX;
   if (
     e.target?.nodeName == "line" &&
-    e.target.parentNode?.className.baseVal !== "indicator"
+    e.target?.parentNode?.className?.baseVal !== "indicator"
   ) {
-    const id = e.target.attributes["data-id"].value;
+    const id = e.target?.attributes["data-id"]?.value;
     const EQData: EQInterface | undefined = allTimeData?.find(
       (item: EQInterface) => item.ID === id
     );

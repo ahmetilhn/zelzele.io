@@ -17,7 +17,7 @@
     </div>
     <div class="eq-item__right">
       <ClientOnly>
-        <AllEQChart
+        <EarthquakesChart
           :magnitude-val="getMagnitudeVal"
           :all-time-data="allTimeData"
           :width="chartStyle.listing.width"
@@ -33,7 +33,7 @@
         title="Tarihsel Deprem Grafiği"
         @close="closeChartDetailModalHandler"
       >
-        <AllEQChart
+        <EarthquakesChart
           :magnitude-val="getMagnitudeVal"
           :all-time-data="allTimeData"
           :width="chartStyle.modal.width"
@@ -46,11 +46,11 @@
   </article>
 </template>
 <script setup lang="ts">
-import AllEQChart from "./all-eq-chart.vue";
+import EarthquakesChart from "./earthquakes-chart.vue";
 import BaseModal from "./base-modal.vue";
 import EQInterface from "~~/interfaces/eq.interface";
 import { setHours } from "~~/utils/date.util";
-import magnitudeConstants from "~~/constants/magnitude.constants";
+import { magnitudeLevels } from "~~/constants/magnitude.constants";
 import { isMobile } from "~~/utils/screen.util";
 interface Props {
   data: EQInterface;
@@ -70,12 +70,12 @@ const { city, district } = (() => {
   };
 })();
 const getMagnitudeVal = ((): string => {
-  if (data.Magnitude < magnitudeConstants.LITTLE.limit) {
-    return magnitudeConstants.LITTLE.value;
-  } else if (data.Magnitude < magnitudeConstants.MEDIUM.limit) {
-    return magnitudeConstants.MEDIUM.value;
+  if (data.Magnitude < magnitudeLevels.LITTLE.limit) {
+    return magnitudeLevels.LITTLE.value;
+  } else if (data.Magnitude < magnitudeLevels.MEDIUM.limit) {
+    return magnitudeLevels.MEDIUM.value;
   } else {
-    return magnitudeConstants.MUCH.value;
+    return magnitudeLevels.MUCH.value;
   }
 })();
 const chartStyle = computed(() => {

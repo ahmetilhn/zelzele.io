@@ -1,4 +1,4 @@
-export default {
+export const magnitudeLevels = {
   LITTLE: {
     limit: 3,
     value: "little",
@@ -12,3 +12,5 @@ export default {
     value: "much",
   },
 };
+
+export const MAX_MAGNITUDE_INTENSITY = 9.5;
