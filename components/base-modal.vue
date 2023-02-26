@@ -3,7 +3,7 @@
     <div :class="{ modal: true, 'modal--mobile': isMobile }">
       <header class="modal__header" horizontal-center>
         <h2 class="title">{{ title }}</h2>
-        <div class="close">
+        <div class="close" @click="close">
           <svg viewBox="0 0 24 24" fill="none">
             <path
               fill-rule="evenodd"
@@ -14,7 +14,7 @@
           </svg>
         </div>
       </header>
-      <main class="modal__content">
+      <main class="modal__content" vertical-center>
         <slot />
       </main>
     </div>
@@ -27,11 +27,22 @@ import BGOverlay from "./bg-overlay.vue";
 type Props = {
   title: string;
 };
+const emit = defineEmits(["close"]);
 const { title } = defineProps<Props>();
 const mobileWidth = 750;
 const isMobile = computed(() => {
   const screenWidth = window?.innerWidth;
   return mobileWidth < screenWidth;
+});
+const close = () => {
+  emit("close");
+};
+
+onMounted(() => {
+  document.body.style.overflow = "hidden";
+});
+onUnmounted(() => {
+  document.body.style.overflow = "";
 });
 </script>
 
@@ -39,7 +50,7 @@ const isMobile = computed(() => {
 .modal {
   width: 500px;
   height: fit-content;
-  padding: 20px;
+  padding: 30px;
   background-color: $white;
   border-radius: 10px;
   &__header {
@@ -58,6 +69,10 @@ const isMobile = computed(() => {
         object-fit: cover;
       }
     }
+  }
+  &__content {
+    margin-top: 30px;
+    width: 100%;
   }
 }
 </style>

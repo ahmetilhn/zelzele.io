@@ -19,17 +19,22 @@
       <AllEQChart
         :magnitude-val="getMagnitudeVal"
         :all-time-data="allTimeData"
+        :width="160"
+        :height="60"
         @open-chart-detail-modal="openChartDetailModalHandler"
       />
     </div>
     <ClientOnly>
       <BaseModal
-        title="Tarihsel Deprem Grafiği"
         v-if="isChartDetailModalVisible"
+        title="Tarihsel Deprem Grafiği"
+        @close="closeChartDetailModalHandler"
       >
         <AllEQChart
           :magnitude-val="getMagnitudeVal"
           :all-time-data="allTimeData"
+          :width="420"
+          :height="200"
           @open-chart-detail-modal="openChartDetailModalHandler"
         />
       </BaseModal>
@@ -71,6 +76,9 @@ const getMagnitudeVal = ((): string => {
 
 const openChartDetailModalHandler = () => {
   isChartDetailModalVisible.value = true;
+};
+const closeChartDetailModalHandler = () => {
+  isChartDetailModalVisible.value = false;
 };
 </script>
 <style lang="scss" scoped>
