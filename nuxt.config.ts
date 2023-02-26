@@ -35,6 +35,10 @@ export default defineNuxtConfig({
             "Zelzele.io ile Deprem analizi yapabilir, son depremleri öğrenebilir tüm depremler ile karşılaştırabilirsiniz.",
         },
         {
+          name: "viewport",
+          content: "initial-scale=1, viewport-fit=cover",
+        },
+        {
           name: "msapplication-TileColor",
           content: "#ffffff",
         },
