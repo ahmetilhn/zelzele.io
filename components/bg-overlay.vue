@@ -8,7 +8,7 @@
 <style lang="scss" scoped>
 .bg-overlay {
   width: 100vw;
-  height: 100vh;
+  height: calc(100% - env(safe-area-inset-bottom));
   position: fixed;
   z-index: 100;
   left: 0;
