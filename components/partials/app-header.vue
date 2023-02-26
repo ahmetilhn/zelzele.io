@@ -1,8 +1,12 @@
 <template>
   <header class="header" vertical-center>
     <div class="header__content" horizontal-center>
-      <div class="site-name">
-        <span>zelzele.io</span>
+      <div class="site-info">
+        <img
+          src="../../assets/svg/logo.svg"
+          title="zelzele.io logo"
+          alt="zelzele.io"
+        />
       </div>
       <div class="date">
         <span>{{ $dayjs().format("MMMM D, YYYY") }}</span>
@@ -22,6 +26,13 @@ const { $dayjs } = useNuxtApp();
     width: 100%;
     max-width: $max-width-one;
     justify-content: space-between;
+    .site-info {
+      display: flex;
+      height: fit-content;
+      img {
+        width: 40px;
+      }
+    }
   }
 }
 </style>
