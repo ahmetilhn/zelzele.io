@@ -22,10 +22,14 @@ const convertData = (data: string) => {
   parsedData = parsedData.filter((item) => {
     return item.length > 0;
   });
-  const [Date, Latitude, Longitude, Depth, MD, ML, MW, Region] = parsedData;
+  const [CreatedDate, Latitude, Longitude, Depth, MD, ML, MW, Region] =
+    parsedData;
+  const _createdDate = new Date(
+    CreatedDate.replaceAll(" ", "T").replaceAll(".", "-")
+  );
   return {
     ["ID"]: getRandomString(),
-    ["Time"]: Date,
+    ["Time"]: _createdDate,
     ["Latitude"]: Latitude,
     ["Longitude"]: Longitude,
     ["Depth"]: Number(Depth),
