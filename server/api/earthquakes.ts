@@ -24,12 +24,9 @@ const convertData = (data: string) => {
   });
   const [CreatedDate, Latitude, Longitude, Depth, MD, ML, MW, Region] =
     parsedData;
-  const _createdDate = new Date(
-    CreatedDate.replaceAll(" ", "T").replaceAll(".", "-")
-  );
   return {
     ["ID"]: getRandomString(),
-    ["Time"]: _createdDate,
+    ["Time"]: CreatedDate.replaceAll(".", "/"),
     ["Latitude"]: Latitude,
     ["Longitude"]: Longitude,
     ["Depth"]: Number(Depth),
