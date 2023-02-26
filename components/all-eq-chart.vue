@@ -1,7 +1,7 @@
 <template>
   <div class="chart-container">
     <Tooltip
-      v-if="indicatorData.EQData?.ID"
+      v-if="indicatorData.EQData?.ID && isIndicatorVisible"
       :style="{ transform: 'translateX(' + (indicatorData.x - 40) + 'px)' }"
       class="chart-tooltip"
     >
@@ -32,7 +32,7 @@
       </g>
 
       <g
-        v-if="indicatorData.EQData?.ID"
+        v-if="indicatorData.EQData?.ID && isIndicatorVisible"
         class="indicator"
         :style="{ transform: 'translateX(' + indicatorData.x + 'px)' }"
       >
@@ -51,6 +51,7 @@ interface Props {
   allTimeData: Array<EQInterface> | undefined;
   width: number;
   height: number;
+  isIndicatorVisible: boolean;
 }
 type ChartLineData = {
   x1: number;
@@ -59,7 +60,8 @@ type ChartLineData = {
   y2: number;
   id: string;
 };
-const { magnitudeVal, allTimeData, height, width } = defineProps<Props>();
+const { magnitudeVal, allTimeData, height, width, isIndicatorVisible } =
+  defineProps<Props>();
 const emit = defineEmits(["openChartDetailModal"]);
 const chartData = ref<Array<ChartLineData>>([]);
 const { $dayjs } = useNuxtApp();
@@ -99,7 +101,9 @@ const indicatorMove = (e: MouseEvent) => {
   }
 };
 const mouseMove = (e: MouseEvent) => {
-  indicatorMove(e);
+  if (isIndicatorVisible) {
+    indicatorMove(e);
+  }
 };
 const openChartDetailModal = () => {
   emit("openChartDetailModal");

@@ -22,6 +22,7 @@
           :all-time-data="allTimeData"
           :width="chartStyle.listing.width"
           :height="chartStyle?.listing.height"
+          :is-indicator-visible="false"
           @open-chart-detail-modal="openChartDetailModalHandler"
         />
       </ClientOnly>
@@ -37,6 +38,7 @@
           :all-time-data="allTimeData"
           :width="chartStyle.modal.width"
           :height="150"
+          :is-indicator-visible="true"
           @open-chart-detail-modal="openChartDetailModalHandler"
         />
       </BaseModal>
