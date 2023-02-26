@@ -1,6 +1,6 @@
 <template>
   <div class="eq-list" vertical-center>
-    <EqListItem
+    <EQListItem
       v-for="(item, key) in lastEarthquakes"
       :key="key"
       :data="item"
@@ -10,7 +10,7 @@
 </template>
 <script setup lang="ts">
 import EQInterface from "~~/interfaces/eq.interface";
-import EqListItem from "./eq-list-item.vue";
+import EQListItem from "./eq-list-item.vue";
 import { useEarthquakesStore } from "~~/store/earthquakes";
 import { storeToRefs } from "pinia";
 const earthquakesStore = useEarthquakesStore();
