@@ -16,13 +16,15 @@
       </div>
     </div>
     <div class="eq-item__right">
-      <AllEQChart
-        :magnitude-val="getMagnitudeVal"
-        :all-time-data="allTimeData"
-        :width="160"
-        :height="60"
-        @open-chart-detail-modal="openChartDetailModalHandler"
-      />
+      <ClientOnly>
+        <AllEQChart
+          :magnitude-val="getMagnitudeVal"
+          :all-time-data="allTimeData"
+          :width="chartStyle.listing.width"
+          :height="60"
+          @open-chart-detail-modal="openChartDetailModalHandler"
+        />
+      </ClientOnly>
     </div>
     <ClientOnly>
       <BaseModal
@@ -33,7 +35,7 @@
         <AllEQChart
           :magnitude-val="getMagnitudeVal"
           :all-time-data="allTimeData"
-          :width="420"
+          :width="chartStyle.modal.width"
           :height="200"
           @open-chart-detail-modal="openChartDetailModalHandler"
         />
@@ -47,6 +49,7 @@ import BaseModal from "./base-modal.vue";
 import EQInterface from "~~/interfaces/eq.interface";
 import { setHours } from "~~/utils/date.util";
 import magnitudeConstants from "~~/constants/magnitude.constants";
+import { isMobile } from "~~/utils/screen.util";
 interface Props {
   data: EQInterface;
   allTimeData: Array<EQInterface> | undefined;
@@ -74,12 +77,18 @@ const getMagnitudeVal = ((): string => {
   }
 })();
 const chartStyle = computed(() => {
-  return {
-    modal: {
-      width: isMobile()
-    }
+  if (process.client) {
+    console.log(isMobile());
+    return {
+      modal: {
+        width: isMobile() ? window?.innerWidth - 50 : 420,
+      },
+      listing: {
+        width: isMobile() ? 100 : 160,
+      },
+    };
   }
-})
+});
 const openChartDetailModalHandler = () => {
   isChartDetailModalVisible.value = true;
 };
@@ -90,13 +99,13 @@ const closeChartDetailModalHandler = () => {
 <style lang="scss" scoped>
 .eq-item {
   width: 100%;
-  height: 160px;
+  height: 130px;
   justify-content: space-between;
   margin: 10px 0;
   border-radius: 10px;
   @include small-device {
     margin: 5px 0;
-    height: 120px;
+    height: 100px;
   }
   &.little {
     background: linear-gradient(90deg, $white 0%, $gray-one 100%);
@@ -141,6 +150,7 @@ const closeChartDetailModalHandler = () => {
       padding: 2px 0;
       @include small-device {
         height: 60px;
+        margin-left: 10px;
       }
       .city {
         @include small-device {
@@ -173,6 +183,9 @@ const closeChartDetailModalHandler = () => {
   &__right {
     margin-right: 20px;
     height: 60px;
+    @include small-device {
+      margin-right: 5px;
+    }
   }
 }
 </style>
