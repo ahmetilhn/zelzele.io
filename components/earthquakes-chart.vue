@@ -60,13 +60,21 @@ const indicatorData = ref({
   x: 0,
   EQData: allTimeData[0] || ({} as EQInterface | undefined),
 });
+const chartLimit = 30;
 const getChartData = () => {
   let oldX = 0;
   let oldY: number;
   allTimeData?.reverse()?.forEach((item: EQInterface, index) => {
-    const y = height - (item.Magnitude / MAX_MAGNITUDE_INTENSITY) * height;
+    if (index + 1 > chartLimit) return;
+    const y = Math.floor(
+      height - (item.Magnitude / MAX_MAGNITUDE_INTENSITY) * height
+    );
     if (index === 0) oldY = y;
-    const x = (width / allTimeData.length) * (index + 1);
+    const x = Math.floor(
+      (width /
+        (allTimeData.length > chartLimit ? chartLimit : allTimeData.length)) *
+        (index + 1)
+    );
     chartData.value.push({
       x1: oldX,
       y1: oldY,
