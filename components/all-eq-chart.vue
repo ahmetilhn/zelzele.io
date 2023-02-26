@@ -1,32 +1,5 @@
 <template>
   <div class="chart-container">
-    <svg
-      :width="width"
-      :height="height"
-      class="chart"
-      :class="magnitudeVal"
-      view-box="0 0 20 100"
-      @click="openChartDetailModal"
-      @mousemove="mouseMove"
-    >
-      <line
-        v-for="data in chartData"
-        :key="data.x1"
-        :x1="data.x1"
-        :y1="data.y1"
-        :x2="data.x2"
-        :y2="data.y2"
-        :data-id="data.id"
-      />
-      <g
-        v-if="indicatorData.EQData?.ID"
-        class="indicator"
-        :style="{ transform: 'translateX(' + indicatorData.x + 'px)' }"
-      >
-        <line x1="0" x2="1" y1="0" :y2="height" />
-      </g>
-    </svg>
-
     <Tooltip
       v-if="indicatorData.EQData?.ID"
       :style="{ transform: 'translateX(' + (indicatorData.x - 40) + 'px)' }"
@@ -37,6 +10,35 @@
         <strong>{{ indicatorData.EQData.Magnitude }}</strong>
       </div>
     </Tooltip>
+    <svg
+      :width="width"
+      :height="height"
+      class="chart"
+      :class="magnitudeVal"
+      :view-box="'0 0' + ' ' + width.toString() + ' ' + height.toString()"
+      @click="openChartDetailModal"
+      @mousemove="mouseMove"
+    >
+      <g class="lines">
+        <line
+          v-for="data in chartData"
+          :key="data.x1"
+          :x1="data.x1"
+          :y1="data.y1"
+          :x2="data.x2"
+          :y2="data.y2"
+          :data-id="data.id"
+        />
+      </g>
+
+      <g
+        v-if="indicatorData.EQData?.ID"
+        class="indicator"
+        :style="{ transform: 'translateX(' + indicatorData.x + 'px)' }"
+      >
+        <line x1="0" x2="1" y1="0" :y2="height" />
+      </g>
+    </svg>
   </div>
 </template>
 
@@ -115,13 +117,15 @@ onMounted(() => {
 }
 .chart {
   cursor: pointer;
-  line {
-    stroke-width: 2px;
-    stroke-dasharray: 1000;
-    stroke-dashoffset: 1000;
-    animation: dashEffect 5s forwards;
-    stroke-linecap: round;
-    cursor: crosshair;
+  .lines {
+    line {
+      stroke-width: 2px;
+      stroke-dasharray: 1000;
+      stroke-dashoffset: 1000;
+      animation: dashEffect 5s forwards;
+      stroke-linecap: round;
+      cursor: crosshair;
+    }
   }
   .indicator {
     line {

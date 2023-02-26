@@ -10,7 +10,7 @@
         </h3>
         <h4 class="district">{{ district }}</h4>
         <h6 class="short-detail">
-          {{ data.Depth }} km, {{ $dayjs().format("DD/MM/YYYY") }} ,
+          {{ data.Depth }} km,
           <strong>{{ dateFromNow }}</strong>
         </h6>
       </div>
@@ -73,7 +73,13 @@ const getMagnitudeVal = ((): string => {
     return magnitudeConstants.MUCH.value;
   }
 })();
-
+const chartStyle = computed(() => {
+  return {
+    modal: {
+      width: isMobile()
+    }
+  }
+})
 const openChartDetailModalHandler = () => {
   isChartDetailModalVisible.value = true;
 };
@@ -88,6 +94,10 @@ const closeChartDetailModalHandler = () => {
   justify-content: space-between;
   margin: 10px 0;
   border-radius: 10px;
+  @include small-device {
+    margin: 5px 0;
+    height: 120px;
+  }
   &.little {
     background: linear-gradient(90deg, $white 0%, $gray-one 100%);
   }
@@ -101,6 +111,11 @@ const closeChartDetailModalHandler = () => {
     .magnitude {
       width: 80px;
       height: 80px;
+      @include small-device {
+        width: 54px;
+        height: 54px;
+        border-radius: 6px;
+      }
       color: $white;
       font-size: 20px;
       font-weight: bold;
@@ -124,14 +139,31 @@ const closeChartDetailModalHandler = () => {
       justify-content: space-between;
       margin-left: 20px;
       padding: 2px 0;
+      @include small-device {
+        height: 60px;
+      }
+      .city {
+        @include small-device {
+          font-size: 16px;
+          line-height: 20px;
+        }
+      }
       .district {
         color: $gray-three;
         font-size: 16px;
+        @include small-device {
+          font-size: 14px;
+          line-height: 14px;
+        }
       }
       .short-detail {
         color: $gray-two;
         font-size: 13px;
         font-weight: normal;
+        @include small-device {
+          font-size: 11px;
+          line-height: 12px;
+        }
         strong {
           color: $gray-three;
         }

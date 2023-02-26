@@ -33,5 +33,8 @@ const getAllTimeData = (
 <style lang="scss" scoped>
 .eq-list {
   width: 100%;
+  @include medium-device {
+    padding: $padding-one;
+  }
 }
 </style>

@@ -23,17 +23,12 @@
 
 <script lang="ts" setup>
 import BGOverlay from "./bg-overlay.vue";
-
+import { isMobile } from "~~/utils/screen.util";
 type Props = {
   title: string;
 };
 const emit = defineEmits(["close"]);
 const { title } = defineProps<Props>();
-const mobileWidth = 750;
-const isMobile = computed(() => {
-  const screenWidth = window?.innerWidth;
-  return mobileWidth < screenWidth;
-});
 const close = () => {
   emit("close");
 };

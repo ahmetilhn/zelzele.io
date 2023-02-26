@@ -2,11 +2,13 @@
   <header class="header" vertical-center>
     <div class="header__content" horizontal-center>
       <div class="site-info">
-        <img
-          src="../../assets/svg/logo.svg"
-          title="zelzele.io logo"
-          alt="zelzele.io"
-        />
+        <NuxtLink to="/">
+          <img
+            src="../../assets/svg/logo.svg"
+            title="zelzele.io logo"
+            alt="zelzele.io"
+          />
+        </NuxtLink>
       </div>
       <div class="date">
         <span>{{ $dayjs().format("MMMM D, YYYY") }}</span>
@@ -20,8 +22,11 @@ const { $dayjs } = useNuxtApp();
 <style lang="scss" scoped>
 .header {
   width: 100vw;
-  padding: 10px;
+  padding: $padding-one;
   border-bottom: 2px solid $gray-one;
+  @include small-device {
+    padding: calc($padding-one / 2) $padding-one;
+  }
   &__content {
     width: 100%;
     max-width: $max-width-one;
@@ -32,6 +37,10 @@ const { $dayjs } = useNuxtApp();
       img {
         width: 40px;
       }
+    }
+    .date {
+      font-size: 13px;
+      font-weight: bold;
     }
   }
 }
