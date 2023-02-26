@@ -1,7 +1,15 @@
 <template>
-  <BGOverlay>
+  <BGOverlay @outside-click="outsideClickHandler">
     <div :class="{ modal: true, 'modal--mobile': isMobile() }">
       <header class="modal__header" horizontal-center>
+        <div
+          @touchmove="close"
+          v-if="isMobile()"
+          class="bar-line"
+          vertical-center
+        >
+          <hr />
+        </div>
         <h2 class="title">{{ title }}</h2>
         <div class="close" @click="close">
           <svg viewBox="0 0 24 24" fill="none">
@@ -32,7 +40,7 @@ const { title } = defineProps<Props>();
 const close = () => {
   emit("close");
 };
-
+const outsideClickHandler = () => close();
 onMounted(() => {
   document.body.style.overflow = "hidden";
 });
@@ -69,7 +77,10 @@ onUnmounted(() => {
     .title {
       font-size: 18px;
       color: $dark;
-      font-weight: bold;
+      font-weight: 600;
+      @include small-device {
+        font-size: 16px;
+      }
     }
     .close {
       width: 24px;
@@ -77,6 +88,26 @@ onUnmounted(() => {
       cursor: pointer;
       svg {
         object-fit: cover;
+        path {
+          fill: $gray-three;
+        }
+      }
+    }
+    .bar-line {
+      @include small-device {
+        position: fixed;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 100%;
+        height: 24px;
+        hr {
+          border: none;
+          width: 40px;
+          height: 4px;
+          border-radius: 2px;
+          background-color: $gray-one;
+        }
       }
     }
   }
