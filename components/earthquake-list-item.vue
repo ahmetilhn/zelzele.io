@@ -84,7 +84,7 @@ const chartStyle = computed(() => {
       },
       listing: {
         width: isMobile() ? 110 : 240,
-        height: isMobile() ? 80 : 100,
+        height: isMobile() ? 70 : 100,
       },
     };
   }
