@@ -1,5 +1,11 @@
 <template>
-  <svg class="chart" :class="magnitudeVal" view-box="0 0 20 100">
+  <svg
+    :width="chart.width"
+    :height="chart.height"
+    class="chart"
+    :class="magnitudeVal"
+    view-box="0 0 20 100"
+  >
     <line
       v-for="data in chartData"
       :key="data.x1"
@@ -33,13 +39,13 @@ const chart = {
 const chartData = ref<Array<ChartLineData>>([]);
 const getChartData = () => {
   let oldX = 0;
-  let oldY = chart.height / 2;
+  let oldY: number;
   allTimeData?.reverse()?.forEach((item: EQInterface, index) => {
+    const y = chart.height - (item.Magnitude / maxMagnitude) * chart.height;
+    if (index === 0) oldY = y;
     console.log({
-      şiddet: item.Magnitude,
-      past: allTimeData,
+      [item.Region]: item.Magnitude,
     });
-    const y = (item.Magnitude / maxMagnitude) * chart.height;
     const x = (chart.width / allTimeData.length) * (index + 1);
     chartData.value.push({
       x1: oldX,
@@ -63,8 +69,6 @@ onMounted(() => {
   }
 }
 .chart {
-  width: 160px;
-  height: 60px;
   line {
     stroke-width: 2px;
     stroke-dasharray: 1000;
