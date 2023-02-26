@@ -1,13 +1,12 @@
 <template>
   <div class="index" vertical-center>
-    <EQList />
+    <EarthquakesList />
   </div>
 </template>
 <script setup lang="ts">
-import EQList from "~~/components/eq-list.vue";
+import EarthquakesList from "~~/components/earthquakes-list.vue";
 import EQInterface from "~~/interfaces/eq.interface";
 import { useEarthquakesStore } from "~~/store/earthquakes";
-// import EQInterface from "~~/interfaces/eq.interface";
 const earthquakesStore = useEarthquakesStore();
 const { setAllEarthquakes, setLastEarthquakes } = earthquakesStore;
 await useAsyncData(async () => {
