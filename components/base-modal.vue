@@ -77,7 +77,7 @@ onUnmounted(() => {
     .title {
       font-size: 18px;
       color: $dark;
-      font-weight: 600;
+      font-weight: 400;
       @include small-device {
         font-size: 16px;
       }
