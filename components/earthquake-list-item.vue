@@ -6,7 +6,7 @@
       </h3>
       <div class="content" vertical-center>
         <h3 class="city">
-          {{ city || district.split(" ")[0].split("/")[1] || district }}
+          {{ city }}
         </h3>
         <h4 class="district">{{ district }}</h4>
         <h6 class="short-detail">
@@ -49,7 +49,6 @@
 import EarthquakesChart from "./earthquakes-chart.vue";
 import BaseModal from "./base-modal.vue";
 import EarthquakeInterface from "~~/interfaces/earthquake.interface";
-import { setHours } from "~~/utils/date.util";
 import { magnitudeLevels } from "~~/constants/magnitude.constants";
 import { isMobile } from "~~/utils/screen.util";
 interface Props {
@@ -59,11 +58,10 @@ interface Props {
 const { $dayjs } = useNuxtApp();
 const { data, allTimeData } = defineProps<Props>();
 const isChartDetailModalVisible = ref(false);
-const dateFromNow = $dayjs(setHours(new Date(data.Time), 3)).from(new Date());
+const dateFromNow = $dayjs(data.Time).from(new Date());
 
 const { city, district } = (() => {
-  const city = data.Region.split("-")[1];
-  const district = data.Region.split("-")[0];
+  const [district, city] = data.Region.split(" - ");
   return {
     city,
     district,

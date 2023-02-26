@@ -1,5 +1,5 @@
 <template>
-  <div class="chart-container">
+  <div v-if="chartData.length" class="chart-container">
     <Tooltip
       v-if="isIndicatorVisible"
       :style="{ transform: 'translateX(' + (indicatorData.x - 40) + 'px)' }"
@@ -64,27 +64,29 @@ const chartLimit = 30;
 const getChartData = () => {
   let oldX = 0;
   let oldY: number;
-  allTimeData?.reverse()?.forEach((item: EarthquakeInterface, index) => {
-    if (index + 1 > chartLimit) return;
-    const y = Math.floor(
-      height - (item.Magnitude / MAX_MAGNITUDE_INTENSITY) * height
-    );
-    if (index === 0) oldY = y;
-    const x = Math.floor(
-      (width /
-        (allTimeData.length > chartLimit ? chartLimit : allTimeData.length)) *
-        (index + 1)
-    );
-    chartData.value.push({
-      x1: oldX,
-      y1: oldY,
-      x2: x,
-      y2: y,
-      id: item.ID,
+  JSON.parse(JSON.stringify(allTimeData))
+    ?.reverse()
+    ?.forEach((item: EarthquakeInterface, index: number) => {
+      if (index + 1 > chartLimit) return;
+      const y = Math.floor(
+        height - (item.Magnitude / MAX_MAGNITUDE_INTENSITY) * height
+      );
+      if (index === 0) oldY = y;
+      const x = Math.floor(
+        (width /
+          (allTimeData.length > chartLimit ? chartLimit : allTimeData.length)) *
+          (index + 1)
+      );
+      chartData.value.push({
+        x1: oldX,
+        y1: oldY,
+        x2: x,
+        y2: y,
+        id: item.ID,
+      });
+      oldY = y;
+      oldX = x;
     });
-    oldY = y;
-    oldX = x;
-  });
 };
 const indicatorMove = (e: MouseEvent) => {
   indicatorData.value.x = e.offsetX;

@@ -12,4 +12,4 @@ interface EarthquakeInterface {
   LastUpdate: string;
 }
 
-export default EQInterface;
+export default EarthquakeInterface;

@@ -11,18 +11,12 @@ const earthquakesStore = useEarthquakesStore();
 const { setAllEarthquakes, setLastEarthquakes } = earthquakesStore;
 await useAsyncData(async () => {
   const _allEarthquakes = await $fetch<Promise<Array<EarthquakeInterface>>>(
-    `https://api.berkealp.net/kandilli/index.php?all`,
+    `/api/earthquakes`,
     {
       method: "GET",
     }
   );
-  const _lastEarthquakes = await $fetch<Promise<Array<EarthquakeInterface>>>(
-    `https://api.berkealp.net/kandilli/index.php?page=1`,
-    {
-      method: "GET",
-    }
-  );
-  setLastEarthquakes(_lastEarthquakes);
+  setLastEarthquakes(_allEarthquakes.splice(0, 30));
   setAllEarthquakes(_allEarthquakes);
 });
 </script>

@@ -19,7 +19,8 @@ const getAllTimeDataForCustomEQ = (
   region: EarthquakeInterface["Region"]
 ): Array<EarthquakeInterface> | undefined => {
   return allEarthquakes.value?.filter(
-    (item: EarthquakeInterface) => item.Region === region
+    (item: EarthquakeInterface) =>
+      item.Region.split(" - ")[1] === region.split(" - ")[1]
   );
 };
 </script>
