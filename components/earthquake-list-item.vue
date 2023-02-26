@@ -1,6 +1,6 @@
 <template>
-  <article class="eq-item" :class="getMagnitudeVal" horizontal-center>
-    <div class="eq-item__left" horizontal-center>
+  <article class="earthquake-item" :class="getMagnitudeVal" horizontal-center>
+    <div class="earthquake-item__left" horizontal-center>
       <h3 class="magnitude" :class="getMagnitudeVal" vertical-center>
         {{ data.Magnitude }}
       </h3>
@@ -15,7 +15,7 @@
         </h6>
       </div>
     </div>
-    <div class="eq-item__right">
+    <div class="earthquake-item__right">
       <ClientOnly>
         <EarthquakesChart
           :magnitude-val="getMagnitudeVal"
@@ -99,7 +99,7 @@ const closeChartDetailModalHandler = () => {
 };
 </script>
 <style lang="scss" scoped>
-.eq-item {
+.earthquake-item {
   width: 100%;
   height: 130px;
   justify-content: space-between;

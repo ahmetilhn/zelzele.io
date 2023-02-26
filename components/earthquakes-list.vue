@@ -1,5 +1,5 @@
 <template>
-  <div class="eq-list" vertical-center>
+  <div class="earthquakes-list" vertical-center>
     <EarthquakeListItem
       v-for="(item, key) in lastEarthquakes"
       :key="key"
@@ -25,7 +25,7 @@ const getAllTimeDataForCustomEQ = (
 </script>
 
 <style lang="scss" scoped>
-.eq-list {
+.earthquakes-list {
   width: 100%;
   @include medium-device {
     padding: $padding-one;

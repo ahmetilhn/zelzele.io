@@ -2,7 +2,7 @@ import { defineStore } from "pinia";
 import EQInterface from "~~/interfaces/eq.interface";
 
 export const useEarthquakesStore = defineStore({
-  id: "eq-store",
+  id: "earthquakes-store",
   state: () => {
     return {
       allEarthquakes: [] as Array<EQInterface>,
