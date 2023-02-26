@@ -16,15 +16,29 @@
       </div>
     </div>
     <div class="eq-item__right">
-      <AllEqChart
+      <AllEQChart
         :magnitude-val="getMagnitudeVal"
         :all-time-data="allTimeData"
+        @open-chart-detail-modal="openChartDetailModalHandler"
       />
     </div>
+    <ClientOnly>
+      <BaseModal
+        title="Tarihsel Deprem Grafiği"
+        v-if="isChartDetailModalVisible"
+      >
+        <AllEQChart
+          :magnitude-val="getMagnitudeVal"
+          :all-time-data="allTimeData"
+          @open-chart-detail-modal="openChartDetailModalHandler"
+        />
+      </BaseModal>
+    </ClientOnly>
   </article>
 </template>
 <script setup lang="ts">
-import AllEqChart from "./all-eq-chart.vue";
+import AllEQChart from "./all-eq-chart.vue";
+import BaseModal from "./base-modal.vue";
 import EQInterface from "~~/interfaces/eq.interface";
 import { setHours } from "~~/utils/date.util";
 import magnitudeConstants from "~~/constants/magnitude.constants";
@@ -33,6 +47,7 @@ interface Props {
   allTimeData: Array<EQInterface> | undefined;
 }
 const { data, allTimeData } = defineProps<Props>();
+const isChartDetailModalVisible = ref(false);
 const { $dayjs } = useNuxtApp();
 const dateFromNow = $dayjs(setHours(new Date(data.Time), 3)).from(new Date());
 
@@ -53,6 +68,10 @@ const getMagnitudeVal = ((): string => {
     return magnitudeConstants.MUCH.value;
   }
 })();
+
+const openChartDetailModalHandler = () => {
+  isChartDetailModalVisible.value = true;
+};
 </script>
 <style lang="scss" scoped>
 .eq-item {

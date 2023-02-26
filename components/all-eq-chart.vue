@@ -5,6 +5,7 @@
     class="chart"
     :class="magnitudeVal"
     view-box="0 0 20 100"
+    @click="openChartDetailModal"
   >
     <line
       v-for="data in chartData"
@@ -31,7 +32,7 @@ type ChartLineData = {
   y2: number;
 };
 const { magnitudeVal, allTimeData } = defineProps<Props>();
-
+const emit = defineEmits(["openChartDetailModal"]);
 const chart = {
   height: 60,
   width: 160,
@@ -57,6 +58,9 @@ const getChartData = () => {
     oldX = x;
   });
 };
+const openChartDetailModal = () => {
+  emit("openChartDetailModal");
+};
 onMounted(() => {
   getChartData();
 });
@@ -69,6 +73,7 @@ onMounted(() => {
   }
 }
 .chart {
+  cursor: pointer;
   line {
     stroke-width: 2px;
     stroke-dasharray: 1000;
