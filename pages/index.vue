@@ -10,14 +10,16 @@ import { useEarthquakesStore } from "~~/store/earthquakes";
 const earthquakesStore = useEarthquakesStore();
 const { setAllEarthquakes, setLastEarthquakes } = earthquakesStore;
 await useAsyncData(async () => {
-  const _allEarthquakes = await $fetch<Promise<Array<EarthquakeInterface>>>(
-    `/api/earthquakes`,
-    {
-      method: "GET",
-    }
-  );
-  setLastEarthquakes(_allEarthquakes.splice(0, 30));
-  setAllEarthquakes(_allEarthquakes);
+  if (process.server) {
+    const _allEarthquakes = await $fetch<Promise<Array<EarthquakeInterface>>>(
+      `/api/earthquakes`,
+      {
+        method: "GET",
+      }
+    );
+    setLastEarthquakes(_allEarthquakes.splice(0, 30));
+    setAllEarthquakes(_allEarthquakes);
+  }
 });
 </script>
 <style lang="scss" scoped>
