@@ -56,9 +56,9 @@ interface Props {
   data: EQInterface;
   allTimeData: Array<EQInterface> | undefined;
 }
+const { $dayjs } = useNuxtApp();
 const { data, allTimeData } = defineProps<Props>();
 const isChartDetailModalVisible = ref(false);
-const { $dayjs } = useNuxtApp();
 const dateFromNow = $dayjs(setHours(new Date(data.Time), 3)).from(new Date());
 
 const { city, district } = (() => {

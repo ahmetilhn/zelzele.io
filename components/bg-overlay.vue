@@ -8,7 +8,7 @@
 <script lang="ts" setup>
 const emit = defineEmits(["outsideClick"]);
 const outsideClick = (e: Event) => {
-  if (e.target.className === "bg-overlay__content") emit("outsideClick");
+  if (e.target?.className === "bg-overlay__content") emit("outsideClick");
 };
 </script>
 <style lang="scss" scoped>
