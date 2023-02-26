@@ -5,18 +5,18 @@
 </template>
 <script setup lang="ts">
 import EarthquakesList from "~~/components/earthquakes-list.vue";
-import EQInterface from "~~/interfaces/eq.interface";
+import EarthquakeInterface from "~~/interfaces/earthquake.interface";
 import { useEarthquakesStore } from "~~/store/earthquakes";
 const earthquakesStore = useEarthquakesStore();
 const { setAllEarthquakes, setLastEarthquakes } = earthquakesStore;
 await useAsyncData(async () => {
-  const _allEarthquakes = await $fetch<Promise<Array<EQInterface>>>(
+  const _allEarthquakes = await $fetch<Promise<Array<EarthquakeInterface>>>(
     `https://api.berkealp.net/kandilli/index.php?all`,
     {
       method: "GET",
     }
   );
-  const _lastEarthquakes = await $fetch<Promise<Array<EQInterface>>>(
+  const _lastEarthquakes = await $fetch<Promise<Array<EarthquakeInterface>>>(
     `https://api.berkealp.net/kandilli/index.php?page=1`,
     {
       method: "GET",

@@ -1,4 +1,4 @@
-interface EQInterface {
+interface EarthquakeInterface {
   ID: string;
   MapImage: URL;
   Time: string;

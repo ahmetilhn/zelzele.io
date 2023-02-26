@@ -40,13 +40,13 @@
 </template>
 
 <script lang="ts" setup>
-import EQInterface from "~~/interfaces/eq.interface";
+import EarthquakeInterface from "~~/interfaces/earthquake.interface";
 import Tooltip from "~~/components/tooltip.vue";
 import { MAX_MAGNITUDE_INTENSITY } from "~~/constants/magnitude.constants";
 import { LineType } from "~~/types/chart.type";
 interface Props {
   magnitudeVal: string;
-  allTimeData: Array<EQInterface> | undefined;
+  allTimeData: Array<EarthquakeInterface> | undefined;
   width: number;
   height: number;
   isIndicatorVisible: boolean;
@@ -58,13 +58,13 @@ const { $dayjs } = useNuxtApp();
 const chartData = ref<Array<LineType>>([]);
 const indicatorData = ref({
   x: 0,
-  EQData: allTimeData[0] || ({} as EQInterface | undefined),
+  EQData: allTimeData[0] || ({} as EarthquakeInterface | undefined),
 });
 const chartLimit = 30;
 const getChartData = () => {
   let oldX = 0;
   let oldY: number;
-  allTimeData?.reverse()?.forEach((item: EQInterface, index) => {
+  allTimeData?.reverse()?.forEach((item: EarthquakeInterface, index) => {
     if (index + 1 > chartLimit) return;
     const y = Math.floor(
       height - (item.Magnitude / MAX_MAGNITUDE_INTENSITY) * height
@@ -93,8 +93,8 @@ const indicatorMove = (e: MouseEvent) => {
     e.target?.parentNode?.className?.baseVal !== "indicator"
   ) {
     const id = e.target?.attributes["data-id"]?.value;
-    const EQData: EQInterface | undefined = allTimeData?.find(
-      (item: EQInterface) => item.ID === id
+    const EQData: EarthquakeInterface | undefined = allTimeData?.find(
+      (item: EarthquakeInterface) => item.ID === id
     );
     indicatorData.value.EQData = EQData;
   }

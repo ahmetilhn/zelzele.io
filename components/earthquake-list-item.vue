@@ -48,13 +48,13 @@
 <script setup lang="ts">
 import EarthquakesChart from "./earthquakes-chart.vue";
 import BaseModal from "./base-modal.vue";
-import EQInterface from "~~/interfaces/eq.interface";
+import EarthquakeInterface from "~~/interfaces/earthquake.interface";
 import { setHours } from "~~/utils/date.util";
 import { magnitudeLevels } from "~~/constants/magnitude.constants";
 import { isMobile } from "~~/utils/screen.util";
 interface Props {
-  data: EQInterface;
-  allTimeData: Array<EQInterface> | undefined;
+  data: EarthquakeInterface;
+  allTimeData: Array<EarthquakeInterface> | undefined;
 }
 const { $dayjs } = useNuxtApp();
 const { data, allTimeData } = defineProps<Props>();

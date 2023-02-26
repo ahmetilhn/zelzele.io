@@ -9,17 +9,17 @@
   </div>
 </template>
 <script setup lang="ts">
-import EQInterface from "~~/interfaces/eq.interface";
+import EarthquakeInterface from "~~/interfaces/earthquake.interface";
 import EarthquakeListItem from "./earthquake-list-item.vue";
 import { useEarthquakesStore } from "~~/store/earthquakes";
 import { storeToRefs } from "pinia";
 const earthquakesStore = useEarthquakesStore();
 const { lastEarthquakes, allEarthquakes } = storeToRefs(earthquakesStore);
 const getAllTimeDataForCustomEQ = (
-  region: EQInterface["Region"]
-): Array<EQInterface> | undefined => {
+  region: EarthquakeInterface["Region"]
+): Array<EarthquakeInterface> | undefined => {
   return allEarthquakes.value?.filter(
-    (item: EQInterface) => item.Region === region
+    (item: EarthquakeInterface) => item.Region === region
   );
 };
 </script>

@@ -1,19 +1,19 @@
 import { defineStore } from "pinia";
-import EQInterface from "~~/interfaces/eq.interface";
+import EarthquakeInterface from "~~/interfaces/earthquake.interface";
 
 export const useEarthquakesStore = defineStore({
   id: "earthquakes-store",
   state: () => {
     return {
-      allEarthquakes: [] as Array<EQInterface>,
-      lastEarthquakes: [] as Array<EQInterface>,
+      allEarthquakes: [] as Array<EarthquakeInterface>,
+      lastEarthquakes: [] as Array<EarthquakeInterface>,
     };
   },
   actions: {
-    setAllEarthquakes(val: Array<EQInterface>) {
+    setAllEarthquakes(val: Array<EarthquakeInterface>) {
       this.allEarthquakes = val;
     },
-    setLastEarthquakes(val: Array<EQInterface>) {
+    setLastEarthquakes(val: Array<EarthquakeInterface>) {
       this.lastEarthquakes = val;
     },
   },
