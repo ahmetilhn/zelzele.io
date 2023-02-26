@@ -162,7 +162,7 @@ onMounted(() => {
 }
 .chart-container {
   position: relative;
-  ::v-deep .chart-tooltip {
+  :deep(.chart-tooltip) {
     position: absolute;
     top: -10px;
     width: 80px;

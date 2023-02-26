@@ -21,4 +21,5 @@ export default defineNuxtConfig({
       src: "@/plugins/dayjs.plugin.ts",
     },
   ],
+  modules: ["@pinia/nuxt"],
 });

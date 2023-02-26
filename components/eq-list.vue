@@ -1,32 +1,26 @@
 <template>
   <div class="eq-list" vertical-center>
     <EqListItem
-      v-for="(item, key) in list"
+      v-for="(item, key) in lastEarthquakes"
       :key="key"
       :data="item"
-      :all-time-data="getAllTimeData(item.Region)"
+      :all-time-data="getAllTimeDataForCustomEQ(item.Region)"
     />
   </div>
 </template>
 <script setup lang="ts">
 import EQInterface from "~~/interfaces/eq.interface";
 import EqListItem from "./eq-list-item.vue";
-const { data: list } = await useAsyncData<Array<EQInterface>>("list", () =>
-  $fetch(`https://api.berkealp.net/kandilli/index.php?page=1`, {
-    method: "GET",
-  })
-);
-const { data: allData } = await useAsyncData<Array<EQInterface>>(
-  "allData",
-  () =>
-    $fetch(`https://api.berkealp.net/kandilli/index.php?all`, {
-      method: "GET",
-    })
-);
-const getAllTimeData = (
+import { useEarthquakesStore } from "~~/store/earthquakes";
+import { storeToRefs } from "pinia";
+const earthquakesStore = useEarthquakesStore();
+const { lastEarthquakes, allEarthquakes } = storeToRefs(earthquakesStore);
+const getAllTimeDataForCustomEQ = (
   region: EQInterface["Region"]
 ): Array<EQInterface> | undefined => {
-  return allData.value?.filter((item: EQInterface) => item.Region === region);
+  return allEarthquakes.value?.filter(
+    (item: EQInterface) => item.Region === region
+  );
 };
 </script>
 
