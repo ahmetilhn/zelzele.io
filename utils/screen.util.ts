@@ -1,4 +1,4 @@
-const mobileWidth = 750;
+const mobileWidth = 576;
 export const isMobile = (): boolean => {
   if (process.client) {
     const screenWidth = window?.innerWidth;

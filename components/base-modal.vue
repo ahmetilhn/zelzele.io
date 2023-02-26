@@ -1,6 +1,6 @@
 <template>
   <BGOverlay>
-    <div :class="{ modal: true, 'modal--mobile': isMobile }">
+    <div :class="{ modal: true, 'modal--mobile': isMobile() }">
       <header class="modal__header" horizontal-center>
         <h2 class="title">{{ title }}</h2>
         <div class="close" @click="close">
@@ -42,12 +42,27 @@ onUnmounted(() => {
 </script>
 
 <style lang="scss" scoped>
+@keyframes bottomToTop {
+  to {
+    transform: translateY(0%);
+  }
+}
 .modal {
   width: 500px;
   height: fit-content;
-  padding: 30px;
+  padding: 20px 30px;
   background-color: $white;
   border-radius: 10px;
+  transform: translateY(100%);
+  animation: bottomToTop 0.1s forwards ease-out;
+  &--mobile {
+    width: 100vw;
+    height: auto;
+    position: absolute;
+    bottom: 0;
+    border-radius: 20px 20px 0 0;
+    padding: 20px;
+  }
   &__header {
     width: 100%;
     justify-content: space-between;

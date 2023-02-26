@@ -21,7 +21,7 @@
           :magnitude-val="getMagnitudeVal"
           :all-time-data="allTimeData"
           :width="chartStyle.listing.width"
-          :height="60"
+          :height="chartStyle?.listing.height"
           @open-chart-detail-modal="openChartDetailModalHandler"
         />
       </ClientOnly>
@@ -36,7 +36,7 @@
           :magnitude-val="getMagnitudeVal"
           :all-time-data="allTimeData"
           :width="chartStyle.modal.width"
-          :height="200"
+          :height="150"
           @open-chart-detail-modal="openChartDetailModalHandler"
         />
       </BaseModal>
@@ -84,6 +84,7 @@ const chartStyle = computed(() => {
       },
       listing: {
         width: isMobile() ? 100 : 160,
+        height: isMobile() ? 45 : 60,
       },
     };
   }
@@ -181,7 +182,6 @@ const closeChartDetailModalHandler = () => {
   }
   &__right {
     margin-right: 20px;
-    height: 60px;
     @include small-device {
       margin-right: 5px;
     }
