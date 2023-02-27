@@ -23,9 +23,10 @@ const { $dayjs } = useNuxtApp();
 .header {
   width: 100%;
   padding: $padding-one;
-  border-bottom: 2px solid $gray-one;
+  border-bottom: 1px solid $dark;
   @include small-device {
-    padding: calc($padding-one / 2) $padding-one;
+    padding: calc($padding-one / 3) $padding-one;
+    border-color: $gray-three;
   }
   &__content {
     width: 100%;
@@ -36,6 +37,9 @@ const { $dayjs } = useNuxtApp();
       height: fit-content;
       img {
         width: 40px;
+        @include small-device {
+          width: 32px;
+        }
       }
     }
     .date {

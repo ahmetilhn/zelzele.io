@@ -16,6 +16,12 @@ $extra-large: 1400px;
   }
 }
 
+@mixin min-small-device {
+  @media (min-width: $small) {
+    @content;
+  }
+}
+
 @mixin medium-device {
   @media (max-width: $medium) {
     @content;
