@@ -18,7 +18,7 @@ const outsideClick = (e: Event) => {
     100% - env(safe-area-inset-bottom)
   ); // for ios 11+ versions and all browsers
   position: fixed;
-  z-index: 100;
+  z-index: 9999;
   left: 0;
   top: 0;
   background-color: #00000034;
