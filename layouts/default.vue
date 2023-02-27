@@ -15,9 +15,9 @@ import BottomBar from "~~/components/partials/bottom-bar.vue";
 <style lang="scss" scoped>
 .layout {
   width: 100%;
-  padding-bottom: 100px;
+  padding-bottom: 120px;
   @include small-device {
-    padding-bottom: 60px;
+    padding-bottom: 90px;
   }
   &__content {
     width: 100%;

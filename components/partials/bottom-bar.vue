@@ -4,11 +4,11 @@
       <div
         :class="{
           item: true,
-          'item--active': activeMenu === menuConstants.MAP.val,
+          'item--active': activeMenu === menuConstants.MAP.path,
         }"
         horizontal-center
         disabled
-        @click="click(menuConstants.MAP.val)"
+        @click="click(menuConstants.MAP)"
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
           <path
@@ -41,10 +41,10 @@
         :class="{
           item: true,
           center: true,
-          'item--active': activeMenu === menuConstants.LISTING.val,
+          'item--active': activeMenu === menuConstants.LISTING.path,
         }"
         horizontal-center
-        @click="click(menuConstants.LISTING.val)"
+        @click="click(menuConstants.LISTING)"
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
           <path
@@ -66,10 +66,10 @@
       <div
         :class="{
           item: true,
-          'item--active': activeMenu === menuConstants.INFO.val,
+          'item--active': activeMenu === menuConstants.INFO.path,
         }"
         horizontal-center
-        @click="click(menuConstants.INFO.val)"
+        @click="click(menuConstants.INFO)"
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
           <path
@@ -93,9 +93,18 @@
 </template>
 <script lang="ts" setup>
 import menuConstants from "~~/constants/menu.constants";
-const activeMenu = ref(menuConstants.LISTING.val);
-const click = (menu: string) => {
-  activeMenu.value = menu;
+type MenuType = {
+  label: string;
+  val: string;
+  path: string;
+};
+const router = useRouter();
+const route = useRoute();
+const activeMenu = computed(() => {
+  return route.path;
+});
+const click = (menu: MenuType) => {
+  router.push(menu.path);
 };
 </script>
 <style lang="scss" scoped>
