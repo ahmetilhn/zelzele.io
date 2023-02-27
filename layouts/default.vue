@@ -5,7 +5,7 @@
       <slot />
     </div>
     <BottomBar />
-    <Loader />
+    <Loader v-if="isLoading" />
   </main>
 </template>
 
@@ -13,6 +13,14 @@
 import AppHeader from "~~/components/partials/app-header.vue";
 import BottomBar from "~~/components/partials/bottom-bar.vue";
 import Loader from "~~/components/loader.vue";
+const isLoading = ref(false);
+const nuxtApp = useNuxtApp();
+nuxtApp.hook("page:start", () => {
+  isLoading.value = true;
+});
+nuxtApp.hook("page:finish", () => {
+  isLoading.value = false;
+});
 </script>
 <style lang="scss" scoped>
 .layout {

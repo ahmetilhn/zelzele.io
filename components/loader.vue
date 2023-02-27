@@ -1,19 +1,11 @@
 <template>
-  <div v-if="isLoading" class="loader" vertical-center>
+  <div class="loader" vertical-center>
     <div class="outer-circle">
       <div class="outer-circle__scanner"></div>
     </div>
   </div>
 </template>
 <script lang="ts" setup>
-const isLoading = ref(false);
-const nuxtApp = useNuxtApp();
-nuxtApp.hook("page:start", () => {
-  isLoading.value = true;
-});
-nuxtApp.hook("page:finish", () => {
-  isLoading.value = false;
-});
 onMounted(() => {
   document.body.style.overflow = "hidden";
 });
