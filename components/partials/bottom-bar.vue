@@ -155,7 +155,7 @@ const click = (menu: string) => {
         background-color: $white;
         border: 1px solid $gray-three;
         position: relative;
-        transform: translateY(-12px);
+        transform: translateY(-10px);
         border-radius: 50%;
         transition: transform 0.2s;
         box-shadow: 0px 3px 10px 3px rgba(0, 0, 0, 0.1);
@@ -166,7 +166,9 @@ const click = (menu: string) => {
           border-color: $dark;
         }
         &.item--active {
-          transform: translateY(-14px);
+          transform: translateY(-12px);
+          background-color: $gray-one;
+          box-shadow: none;
         }
       }
     }
