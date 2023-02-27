@@ -7,6 +7,7 @@
           'item--active': activeMenu === menuConstants.MAP.val,
         }"
         horizontal-center
+        disabled
         @click="click(menuConstants.MAP.val)"
       >
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
@@ -34,7 +35,7 @@
             fill="#292D32"
           />
         </svg>
-        <span class="item__label">Liste</span>
+        <span class="item__label">Harita</span>
       </div>
       <div
         :class="{
@@ -98,6 +99,11 @@ const click = (menu: string) => {
 };
 </script>
 <style lang="scss" scoped>
+@keyframes bottomToTop {
+  to {
+    transform: translateY(0);
+  }
+}
 .bottom-bar {
   width: 100vw;
   background-color: $white;
@@ -107,17 +113,31 @@ const click = (menu: string) => {
   left: 0;
   z-index: 999;
   height: calc(54px + env(safe-area-inset-bottom));
-  box-shadow: -2px -13px 49px 4px rgba(0, 0, 0, 0.1);
-  border: 2px solid $dark;
+  box-shadow: 0px -10px 40px 4px rgba(0, 0, 0, 0.1);
+  border: 1px solid $gray-three;
   border-bottom: none;
+  @include small-device {
+    transform: translateY(100px);
+    animation: bottomToTop 0.3s ease-out forwards;
+    animation-delay: 0.6s;
+  }
+  @include min-small-device {
+    left: 50%;
+    transform: translate(-50%);
+    bottom: 30px;
+    border-radius: 40px;
+    border: 2px solid $dark;
+    width: 500px;
+  }
   &__items {
     width: 100%;
     height: 100%;
     justify-content: space-around;
     .item {
       height: 40px;
-      width: calc(45% - 40px);
+      width: calc(40% - 40px);
       border-radius: 20px;
+      cursor: pointer;
       svg {
         width: 30px;
       }
@@ -127,16 +147,26 @@ const click = (menu: string) => {
         font-weight: bold;
       }
       &--active {
-        background-color: #ededed;
+        background-color: $gray-one;
       }
       &.center {
         width: 60px;
         height: 60px;
         background-color: $white;
-        border: 2px solid $dark;
+        border: 1px solid $gray-three;
         position: relative;
         transform: translateY(-12px);
         border-radius: 50%;
+        transition: transform 0.2s;
+        box-shadow: 0px 3px 20px 4px rgba(0, 0, 0, 0.15);
+        @include min-small-device {
+          transform: translateY(0);
+          width: 64px;
+          height: 64px;
+        }
+        &.item--active {
+          transform: translateY(-16px);
+        }
       }
     }
   }

@@ -25,7 +25,7 @@ const { $dayjs } = useNuxtApp();
   padding: $padding-one;
   border-bottom: 2px solid $gray-one;
   @include small-device {
-    padding: calc($padding-one / 2) $padding-one;
+    padding: calc($padding-one / 3) $padding-one;
   }
   &__content {
     width: 100%;
@@ -36,6 +36,9 @@ const { $dayjs } = useNuxtApp();
       height: fit-content;
       img {
         width: 40px;
+        @include small-device {
+          width: 32px;
+        }
       }
     }
     .date {
