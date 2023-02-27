@@ -21,7 +21,7 @@ const { $dayjs } = useNuxtApp();
 </script>
 <style lang="scss" scoped>
 .header {
-  width: 100vw;
+  width: 100%;
   padding: $padding-one;
   border-bottom: 2px solid $gray-one;
   @include small-device {
