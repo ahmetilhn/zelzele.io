@@ -11,7 +11,10 @@
         <h4 class="district">{{ district }}</h4>
         <h6 class="short-detail">
           {{ data.Depth }} km,
-          <strong>{{ dateFromNow }}</strong>
+          <strong>
+            {{ dateFromNow }}
+            <span class="time-tooltip">{{ formattedDate }}</span>
+          </strong>
         </h6>
       </div>
     </div>
@@ -45,6 +48,7 @@
     </ClientOnly>
   </article>
 </template>
+
 <script setup lang="ts">
 import EarthquakesChart from "./earthquakes-chart.vue";
 import BaseModal from "./base-modal.vue";
@@ -88,6 +92,9 @@ const chartStyle = computed(() => {
       },
     };
   }
+});
+const formattedDate = computed(() => {
+  return $dayjs(data.Time).format("DD.MM.YYYY HH:mm:ss");
 });
 const openChartDetailModalHandler = () => {
   isChartDetailModalVisible.value = true;
@@ -178,7 +185,37 @@ const closeChartDetailModalHandler = () => {
           line-height: 12px;
         }
         strong {
+          position: relative;
           color: $gray-three;
+          cursor: pointer;
+          &:hover .time-tooltip {
+            opacity: 1;
+            visibility: visible;
+          }
+          .time-tooltip {
+            transition: 0.3s all;
+            opacity: 0;
+            visibility: hidden;
+            position: absolute;
+            bottom: 150%;
+            border-radius: 4px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: $dark-light;
+            width: max-content;
+            padding: 6px;
+            color: #fff;
+            &::before {
+              content: "";
+              border-left: 5px solid transparent;
+              border-right: 5px solid transparent;
+              border-top: 5px solid $dark-light;
+              position: absolute;
+              bottom: -5px;
+              left: 50%;
+              transform: translateX(-50%);
+            }
+          }
         }
       }
     }
