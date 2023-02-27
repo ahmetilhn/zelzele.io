@@ -126,7 +126,7 @@ const click = (menu: string) => {
     transform: translate(-50%);
     bottom: 30px;
     border-radius: 40px;
-    border: 2px solid $dark;
+    border: 1px solid $dark;
     width: 500px;
   }
   &__items {
@@ -158,14 +158,15 @@ const click = (menu: string) => {
         transform: translateY(-12px);
         border-radius: 50%;
         transition: transform 0.2s;
-        box-shadow: 0px 3px 20px 4px rgba(0, 0, 0, 0.15);
+        box-shadow: 0px 3px 10px 3px rgba(0, 0, 0, 0.1);
         @include min-small-device {
           transform: translateY(0);
           width: 64px;
           height: 64px;
+          border-color: $dark;
         }
         &.item--active {
-          transform: translateY(-16px);
+          transform: translateY(-14px);
         }
       }
     }
