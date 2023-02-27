@@ -5,12 +5,14 @@
       <slot />
     </div>
     <BottomBar />
+    <Loader />
   </main>
 </template>
 
 <script setup lang="ts">
 import AppHeader from "~~/components/partials/app-header.vue";
 import BottomBar from "~~/components/partials/bottom-bar.vue";
+import Loader from "~~/components/loader.vue";
 </script>
 <style lang="scss" scoped>
 .layout {
