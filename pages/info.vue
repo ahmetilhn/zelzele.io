@@ -9,20 +9,19 @@
       <div class="item">
         <h4>Deprem Verileri Nereden Çekiliyor?</h4>
         <p>
-          Veriler Kandilli Rasathanesinden anlık olarak çekilmekte olup hiçbir
-          manipulasyona uğratılmamaktadır. Kaynak:
-          <a href="http://www.koeri.boun.edu.tr/scripts/lst9.asp"
-            >Kandilli Rasathanesi</a
-          >
+          Veriler Affad'dan anlık olarak çekilmekte olup hiçbir manipulasyona
+          uğratılmamaktadır. Kaynak:
+          <a href="https://deprem.afad.gov.tr/last-earthquakes.html">Affad</a>
+          <br />
         </p>
       </div>
       <div class="item">
         <h4>Tarihsel Deprem Grafiği Nasıl Oluşturuluyor?</h4>
         <p>
-          Grafikler Kandilli Rasathanesinden gelen X şehrine ait tüm veriler
-          belirli hesaplamalardan geçirilerek grafiğe dönüştürülür. Bu işlemde
-          maksimum deprem şiddeti: <strong>9.5</strong> referans alınıp bu uç
-          noktasına göre hesaplanmaktadır.
+          Affad'dan gelen X şehrine ait tüm veriler belirli hesaplamalardan
+          geçirilerek grafiğe dönüştürülür. Bu işlemde maksimum deprem şiddeti:
+          <strong>9.5</strong> referans alınıp bu uç noktasına göre
+          hesaplanmaktadır.
         </p>
         <img
           src="~~/assets/img/promotion/earthquake-item.png"
@@ -59,8 +58,8 @@
       <p>
         <strong
           >Bu sitedeki veriler
-          <a href="http://www.koeri.boun.edu.tr/scripts/lst0.asp"
-            >Kandilli Rasathanesinden</a
+          <a href="https://deprem.afad.gov.tr/last-earthquakes.html"
+            >Affad'dan</a
           >
           çekilmekte olup herhangi bir manipulasyona uğratılmamaktadır.
           <a href="https://zelzele.io/">zelzele.io</a> bu verileri sadece aynen
