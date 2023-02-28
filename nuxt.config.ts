@@ -1,5 +1,10 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
+import packageJson from "./package.json";
 export default defineNuxtConfig({
+  runtimeConfig: {
+    public: {
+      appVersion: packageJson.version,
+    },
+  },
   vite: {
     css: {
       preprocessorOptions: {

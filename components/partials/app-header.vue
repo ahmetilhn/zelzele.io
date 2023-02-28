@@ -1,7 +1,7 @@
 <template>
   <header class="header" vertical-center>
     <div class="header__content" horizontal-center>
-      <div class="site-info">
+      <div class="site-info" horizontal-center>
         <NuxtLink to="/">
           <img
             src="../../assets/svg/logo.svg"
@@ -9,6 +9,17 @@
             alt="zelzele.io"
           />
         </NuxtLink>
+        <a
+          href="https://github.com/ahmetilhan24/zelzele.io"
+          target="_blank"
+          class="opensource"
+        >
+          <img
+            src="../../assets/svg/opensource.svg"
+            alt="Open source project"
+            title="Bu proje açık kaynaktır"
+          />
+        </a>
       </div>
       <div class="date">
         <span>{{ $dayjs().format("MMMM D, YYYY") }}</span>
@@ -35,10 +46,27 @@ const { $dayjs } = useNuxtApp();
     .site-info {
       display: flex;
       height: fit-content;
-      img {
+      position: relative;
+      a {
+        height: 40px;
         width: 40px;
         @include small-device {
           width: 32px;
+          height: 32px;
+        }
+        &.opensource {
+          background-color: $white;
+          border-radius: 50%;
+          border: 1px solid $gray-two;
+          width: 20px;
+          height: 20px;
+          position: absolute;
+          right: -5px;
+          top: -5px;
+        }
+        img {
+          width: 100%;
+          height: 100%;
         }
       }
     }
