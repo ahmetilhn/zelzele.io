@@ -20,7 +20,7 @@
         <line
           v-for="item in 9"
           :key="item"
-          :x1="0"
+          x1="0"
           :y1="Math.ceil(item * (height / 9))"
           :x2="width"
           :y2="Math.ceil(item * (height / 9))"
@@ -39,9 +39,9 @@
       <g v-if="isHasGrid" class="labels">
         <template v-for="(data, index) in chartData" :key="data.x1">
           <text
-            v-if="index !== 0"
-            :x="data.x1"
-            :y="data.y1 - 10"
+            v-if="index + 1 !== chartData.length"
+            :x="data.x2"
+            :y="data.y2 - 10"
             text-anchor="middle"
           >
             {{ data.label }}
