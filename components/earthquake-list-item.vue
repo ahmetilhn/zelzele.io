@@ -18,11 +18,12 @@
     <div class="earthquake-item__right">
       <ClientOnly>
         <EarthquakesChart
+          v-if="allTimeData?.length"
           :magnitude-val="getMagnitudeVal"
           :all-time-data="allTimeData"
           :width="chartStyle.listing.width"
           :height="chartStyle?.listing.height"
-          :is-indicator-visible="false"
+          :is-has-grid="false"
           @open-chart-detail-modal="openChartDetailModalHandler"
         />
       </ClientOnly>
@@ -38,7 +39,7 @@
           :all-time-data="allTimeData"
           :width="chartStyle.modal.width"
           :height="150"
-          :is-indicator-visible="true"
+          :is-has-grid="true"
           @open-chart-detail-modal="openChartDetailModalHandler"
         />
       </BaseModal>
