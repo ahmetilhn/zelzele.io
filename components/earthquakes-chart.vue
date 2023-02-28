@@ -103,8 +103,15 @@ const getChartData = () => {
       oldX = x;
     });
 };
+const { $gtm } = useNuxtApp();
+const route = useRoute();
 const openChartDetailModal = () => {
   emit("openChartDetailModal");
+  $gtm.pushUIEvent({
+    eventCategory: "Earthquakes Chart - Click",
+    eventAction: activeEarthquake.Region,
+    eventLabel: route.path,
+  });
 };
 onMounted(() => {
   getChartData();

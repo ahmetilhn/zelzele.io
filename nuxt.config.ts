@@ -20,6 +20,10 @@ export default defineNuxtConfig({
     {
       src: "@/plugins/dayjs.plugin.ts",
     },
+    {
+      src: "@/plugins/gtm.plugin.ts",
+      mode: "client",
+    },
   ],
   modules: ["@pinia/nuxt"],
   app: {
