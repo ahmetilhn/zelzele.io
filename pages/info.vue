@@ -91,6 +91,18 @@
     </div>
   </div>
 </template>
+<script lang="ts" setup>
+useHead({
+  title: "Zelzele.io tanıtım ve bilgi sayfası",
+  meta: [
+    {
+      name: "description",
+      content:
+        "Zelzele.io Nedir? Zelzele.io kullanım koşuları nelerdir? Tüm depremler grafiği nasıl oluşturulur?",
+    },
+  ],
+});
+</script>
 <style lang="scss" scoped>
 .info {
   padding: 0 $padding-one;

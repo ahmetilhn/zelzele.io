@@ -16,7 +16,7 @@ await useAsyncData(async () => {
       method: "GET",
     }
   );
-  setLastEarthquakes(_allEarthquakes.splice(0, 30));
+  setLastEarthquakes(JSON.parse(JSON.stringify(_allEarthquakes)).splice(0, 30));
   setAllEarthquakes(_allEarthquakes);
 });
 </script>

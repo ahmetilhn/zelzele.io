@@ -100,11 +100,17 @@ type MenuType = {
 };
 const router = useRouter();
 const route = useRoute();
+const { $gtm } = useNuxtApp();
 const activeMenu = computed(() => {
   return route.path;
 });
 const click = (menu: MenuType) => {
   router.push(menu.path);
+  $gtm.pushUIEvent({
+    eventCategory: "Bottom Bar - Click",
+    eventAction: menu.path,
+    eventLabel: route.path,
+  });
 };
 </script>
 <style lang="scss" scoped>

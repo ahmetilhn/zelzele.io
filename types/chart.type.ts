@@ -4,4 +4,5 @@ export type LineType = {
   x2: number;
   y2: number;
   id: string;
+  label: string;
 };
