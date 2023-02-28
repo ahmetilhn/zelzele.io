@@ -6,9 +6,9 @@
       </h3>
       <div class="content" vertical-center>
         <h3 class="city">
-          {{ city }}
+          {{ data.Region.City }}
         </h3>
-        <h4 class="district">{{ district }}</h4>
+        <h4 class="district">{{ data.Region.District }}</h4>
         <h6 class="short-detail">
           {{ data.Depth }} km,
           <strong>{{ dateFromNow }}</strong>
@@ -61,15 +61,8 @@ interface Props {
 const { $dayjs } = useNuxtApp();
 const { data, allTimeData } = defineProps<Props>();
 const isChartDetailModalVisible = ref(false);
-const dateFromNow = $dayjs(data.Time).from(new Date());
+const dateFromNow = $dayjs(data.Date).from(new Date());
 
-const { city, district } = (() => {
-  const [district, city] = data.Region.split(" - ");
-  return {
-    city,
-    district,
-  };
-})();
 const getMagnitudeVal = ((): string => {
   if (data.Magnitude < magnitudeLevels.LITTLE.limit) {
     return magnitudeLevels.LITTLE.value;

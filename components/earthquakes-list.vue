@@ -4,7 +4,7 @@
       v-for="(item, key) in lastEarthquakes"
       :key="key"
       :data="item"
-      :all-time-data="getAllTimeDataForCustomEQ(item.Region)"
+      :all-time-data="getAllTimeDataForCustomEQ(item.Region.City)"
     />
   </div>
 </template>
@@ -16,11 +16,10 @@ import { storeToRefs } from "pinia";
 const earthquakesStore = useEarthquakesStore();
 const { lastEarthquakes, allEarthquakes } = storeToRefs(earthquakesStore);
 const getAllTimeDataForCustomEQ = (
-  region: EarthquakeInterface["Region"]
+  city: EarthquakeInterface["Region"]["City"]
 ): Array<EarthquakeInterface> | undefined => {
   return allEarthquakes.value?.filter(
-    (item: EarthquakeInterface) =>
-      item.Region.split(" - ")[1] === region.split(" - ")[1]
+    (item: EarthquakeInterface) => item.Region.City === city
   );
 };
 </script>

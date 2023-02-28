@@ -109,7 +109,8 @@ const openChartDetailModal = () => {
   emit("openChartDetailModal");
   $gtm.pushUIEvent({
     eventCategory: "Earthquakes Chart - Click",
-    eventAction: activeEarthquake.Region,
+    eventAction:
+      activeEarthquake.Region.City + activeEarthquake.Region.District,
     eventLabel: route.path,
   });
 };
