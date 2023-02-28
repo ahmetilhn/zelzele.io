@@ -27,14 +27,14 @@
         />
       </g>
       <g class="lines">
-        <line
-          v-for="data in chartData"
-          :key="data.x1"
-          :x1="data.x1"
-          :y1="data.y1"
-          :x2="data.x2"
-          :y2="data.y2"
-        />
+        <template v-for="data in chartData" :key="data.x1">
+          <line :x1="data.x1" :y1="data.y1" :x2="data.x2" :y2="data.y2" />
+          <circle
+            v-if="data.id === activeEarthquake.ID"
+            :cx="data.x2"
+            :cy="data.y2"
+          />
+        </template>
       </g>
       <g v-if="isHasGrid" class="labels">
         <template v-for="(data, index) in chartData" :key="data.x1">
@@ -67,16 +67,19 @@ interface Props {
   width: number;
   height: number;
   isHasGrid: boolean;
+  activeEarthquake: EarthquakeInterface;
 }
-const { magnitudeVal, allTimeData, height, width } = defineProps<Props>();
+const { magnitudeVal, allTimeData, height, width, activeEarthquake } =
+  defineProps<Props>();
 const emit = defineEmits(["openChartDetailModal"]);
 const chartData = ref<Array<LineType>>([]);
-const chartLimit = 24;
+const chartLimit = 30;
 const getChartData = () => {
   let oldX = 0;
   let oldY: number;
   JSON.parse(JSON.stringify(allTimeData))
     ?.reverse()
+    .slice(-chartLimit)
     ?.forEach((item: EarthquakeInterface, index: number) => {
       if (index + 1 > chartLimit) return;
       const y = Math.ceil(
@@ -127,6 +130,9 @@ onMounted(() => {
       animation: dashEffect 5s forwards;
       stroke-linecap: round;
       cursor: crosshair;
+    }
+    circle {
+      r: 3px;
     }
   }
   .grid {

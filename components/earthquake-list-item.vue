@@ -24,6 +24,7 @@
           :width="chartStyle.listing.width"
           :height="chartStyle?.listing.height"
           :is-has-grid="false"
+          :active-earthquake="data"
           @open-chart-detail-modal="openChartDetailModalHandler"
         />
       </ClientOnly>
@@ -40,6 +41,7 @@
           :width="chartStyle.modal.width"
           :height="150"
           :is-has-grid="true"
+          :active-earthquake="data"
           @open-chart-detail-modal="openChartDetailModalHandler"
         />
       </BaseModal>
