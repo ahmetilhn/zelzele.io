@@ -84,8 +84,19 @@
           width="20px"
           height="20px"
         />) olup
-        <a href="https://github.com/ahmetilhan24/zelzele.io">Github </a>
+        <a href="https://github.com/ahmetilhan24/zelzele.io" target="_blank"
+          >Github
+        </a>
         üzerinden desteklerinizi beklemektedir.
+      </p>
+      <p>
+        Bir hata bildirmek ya da yeni bir özelik eklenmesini istiyorsanız şu
+        linkten bir issue(Talep) açın.
+        <a
+          href="https://github.com/ahmetilhan24/zelzele.io/issues"
+          target="_blank"
+          >Github Issues</a
+        >
       </p>
     </div>
     <div class="info__note" vertical-center>
