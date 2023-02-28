@@ -12,18 +12,18 @@
         <line
           v-for="index in chartData.length + 1"
           :key="index"
-          :x1="index * (width / chartData.length)"
+          :x1="Math.ceil(index * (width / chartData.length))"
           y1="0"
-          :x2="index * (width / chartData.length)"
+          :x2="Math.ceil(index * (width / chartData.length))"
           :y2="height"
         />
         <line
           v-for="item in 9"
           :key="item"
           :x1="0"
-          :y1="item * (height / 9)"
+          :y1="Math.ceil(item * (height / 9))"
           :x2="width"
-          :y2="item * (height / 9)"
+          :y2="Math.ceil(item * (height / 9))"
         />
       </g>
       <g class="lines">
