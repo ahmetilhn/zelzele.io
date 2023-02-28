@@ -168,7 +168,7 @@ const click = (menu: MenuType) => {
         width: 60px;
         height: 60px;
         background-color: $white;
-        border: 1px solid $gray-three;
+        border: 2px solid $gray-three;
         position: relative;
         transform: translateY(-10px);
         border-radius: 50%;
