@@ -23,7 +23,7 @@ export default defineEventHandler(async (event) => {
           ] = $(el).find("td");
           data.push({
             ID: $(ID).text(),
-            Date: $(CreatedDate).text(),
+            Date: $(CreatedDate).text().replaceAll("-", "/"),
             Latitude: $(Latitude).text(),
             Longitude: $(Longitude).text(),
             Depth: Number($(Depth).text()),
