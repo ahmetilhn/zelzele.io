@@ -32,9 +32,17 @@
     <ClientOnly>
       <BaseModal
         v-if="isChartDetailModalVisible"
-        title="Tarihsel Deprem Grafiği"
+        :title="data.Region.City + ' Deprem Grafiği'"
+        class="chart-detail-modal"
         @close="closeChartDetailModalHandler"
       >
+        <p>
+          Bu grafik ilki
+          <strong>{{ $dayjs(allTimeData[0].Date).fromNow(true) }} </strong>
+          önce olan
+          <strong>{{ allTimeData?.length }}</strong> deprem verisiyle
+          oluşturulmuştur.
+        </p>
         <EarthquakesChart
           :magnitude-val="getMagnitudeVal"
           :all-time-data="allTimeData"
@@ -76,7 +84,7 @@ const chartStyle = computed(() => {
   if (process.client) {
     return {
       modal: {
-        width: isMobile() ? window?.innerWidth - 50 : 420,
+        width: isMobile() ? window?.innerWidth - 50 : 436,
       },
       listing: {
         width: isMobile() ? 130 : 240,
@@ -183,6 +191,21 @@ const closeChartDetailModalHandler = () => {
     margin-right: 20px;
     @include small-device {
       margin-right: 5px;
+    }
+  }
+  .chart-detail-modal {
+    text-align: left;
+    :deep(.modal__content) {
+      align-items: flex-start;
+      p {
+        margin-bottom: 20px;
+        color: $gray-three;
+        font-size: 14px;
+        line-height: 20px;
+        strong {
+          color: $dark;
+        }
+      }
     }
   }
 }

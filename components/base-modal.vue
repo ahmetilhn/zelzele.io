@@ -77,7 +77,7 @@ onUnmounted(() => {
     .title {
       font-size: 18px;
       color: $dark;
-      font-weight: 400;
+      font-weight: 500;
       @include small-device {
         font-size: 16px;
       }
@@ -91,6 +91,10 @@ onUnmounted(() => {
         path {
           fill: $gray-three;
         }
+      }
+      @include small-device {
+        width: 20px;
+        height: 20px;
       }
     }
     .bar-line {
@@ -112,7 +116,7 @@ onUnmounted(() => {
     }
   }
   &__content {
-    margin-top: 30px;
+    margin-top: 25px;
     width: 100%;
   }
 }
