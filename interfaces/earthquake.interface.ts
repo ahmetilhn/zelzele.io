@@ -1,15 +1,15 @@
 interface EarthquakeInterface {
   ID: string;
-  MapImage: URL;
-  Time: string;
+  Date: Date;
   Magnitude: number;
-  MagnitudeType: string;
+  Type: string;
   Latitude: string;
   Longitude: string;
   Depth: number;
-  Region: string;
-  AM: string;
-  LastUpdate: string;
+  Region: {
+    City: string;
+    District: string;
+  };
 }
 
 export default EarthquakeInterface;

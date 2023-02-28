@@ -1,50 +1,48 @@
 import cheerio from "cheerio";
-import { getRandomString } from "~~/utils/random.util";
+import EarthquakeInterface from "~~/interfaces/earthquake.interface";
 export default defineEventHandler(async (event) => {
   if (event.node.req.method === "GET") {
     const afadWeb = await $fetch<Promise<string>>(
-      "http://www.koeri.boun.edu.tr/scripts/lst6.asp"
+      "https://deprem.afad.gov.tr/last-earthquakes.html"
     );
     const $ = cheerio.load(afadWeb);
-    const response = $("pre").text();
-    let result = response.split("\n");
-    result = result.splice(6, result.length);
-    result = result.splice(0, result.length - 2);
-    const convertedData = result.map((item) => {
-      return convertData(item);
-    });
-    return [...convertedData];
+    let data: Array<EarthquakeInterface> = [];
+    const parse = (): void => {
+      $("tbody")
+        .find("tr")
+        .map((i, el) => {
+          const [
+            CreatedDate,
+            Latitude,
+            Longitude,
+            Depth,
+            Type,
+            Magnitude,
+            Region,
+            ID,
+          ] = $(el).find("td");
+          data.push({
+            ID: $(ID).text(),
+            Date: new Date($(CreatedDate).text()),
+            Latitude: $(Latitude).text(),
+            Longitude: $(Longitude).text(),
+            Depth: Number($(Depth).text()),
+            Magnitude: Number($(Magnitude).text()),
+            Region: parseRegion($(Region).text()),
+            Type: $(Type).text(),
+          });
+        });
+    };
+    parse();
+    return data;
   }
 });
 
-const convertData = (data: string) => {
-  let parsedData: Array<string> = data.split("  ");
-  parsedData = parsedData.filter((item) => {
-    return item.length > 0;
-  });
-  const [CreatedDate, Latitude, Longitude, Depth, MD, ML, MW, Region] =
-    parsedData;
+const parseRegion = (region: string): EarthquakeInterface["Region"] => {
+  let [district, city] = region?.split("("); // -> istanbul)
+  city = city.split(")")[0]; // -> istanbul
   return {
-    ["ID"]: new Date(CreatedDate).getTime(),
-    ["Time"]: CreatedDate.replaceAll(".", "/"),
-    ["Latitude"]: Latitude,
-    ["Longitude"]: Longitude,
-    ["Depth"]: Number(Depth),
-    ["Magnitude"]: Number(ML),
-    ["Region"]: parseLocation(Region).replace("(", "").replace(")", ""),
+    City: city,
+    District: district,
   };
-};
-const parseLocation = (val: string): string => {
-  val = val.trim(" ");
-  const spaces = val.split("").filter((item) => item === " ");
-  const isHasHyphenChar = !spaces.length && val.split("-").length;
-  if (spaces.length === 1) {
-    return val.split(" ")[0] + " - " + val.split(" ")[1];
-  } else if (spaces.length === 2) {
-    return val.split(" ")[0] + "-" + val.split(" ")[1] + " - " + val.split("2");
-  } else if (isHasHyphenChar) {
-    return val.split("-")[0] + " - " + val.split("-")[1];
-  } else {
-    return "___" + val;
-  }
 };
