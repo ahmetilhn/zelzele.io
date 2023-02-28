@@ -132,7 +132,7 @@ onMounted(() => {
       cursor: crosshair;
     }
     circle {
-      r: 3px;
+      r: 2px;
     }
   }
   .grid {
@@ -145,7 +145,7 @@ onMounted(() => {
   }
   .circles {
     circle {
-      r: 3px;
+      r: 2px;
       transition: r 0.2s;
       &:hover {
         r: 8px;
