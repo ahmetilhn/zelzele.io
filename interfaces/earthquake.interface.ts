@@ -1,6 +1,6 @@
 interface EarthquakeInterface {
   ID: string;
-  Date: Date;
+  Date: string;
   Magnitude: number;
   Type: string;
   Latitude: string;
