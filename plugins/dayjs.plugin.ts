@@ -6,6 +6,7 @@ import("dayjs/locale/tr");
 export default defineNuxtPlugin(() => {
   dayjs.extend(UTC);
   dayjs.extend(timezone);
+  dayjs.tz("2013-11-18 11:55:20", "Turkey");
   dayjs.locale("tr");
   dayjs.extend(relativeTime);
   return {
