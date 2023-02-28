@@ -1,7 +1,8 @@
 <template>
   <div class="info" vertical-center>
-    <div class="info__title" vertical-center>
+    <div class="info__title" horizontal-center>
       <h2>Zelzele.io</h2>
+      <span>v{{ config.public.appVersion }}</span>
     </div>
     <br />
     <div class="info__questions" vertical-center>
@@ -76,9 +77,26 @@
         hizmet etmektedir. Proje yayında olduğu sürece amacından kopmayacaktır.
       </p>
       <p>
-        Bu proje açık kaynak olup
-        <a href="https://github.com/ahmetilhan24/zelzele.io">Github</a>
+        Bu proje açık kaynak (<img
+          src="~~/assets/svg/opensource.svg"
+          alt="Opensource"
+          title="Bu proje açık kaynaktır"
+          width="20px"
+          height="20px"
+        />) olup
+        <a href="https://github.com/ahmetilhan24/zelzele.io" target="_blank"
+          >Github
+        </a>
         üzerinden desteklerinizi beklemektedir.
+      </p>
+      <p>
+        Bir hata bildirmek ya da yeni bir özelik eklenmesini istiyorsanız şu
+        linkten bir issue(Talep) açın.
+        <a
+          href="https://github.com/ahmetilhan24/zelzele.io/issues"
+          target="_blank"
+          >Github Issues</a
+        >
       </p>
     </div>
     <div class="info__note" vertical-center>
@@ -92,6 +110,7 @@
   </div>
 </template>
 <script lang="ts" setup>
+const config = useRuntimeConfig();
 useHead({
   title: "Zelzele.io tanıtım ve bilgi sayfası",
   meta: [
@@ -119,7 +138,13 @@ useHead({
   }
   &__title {
     width: 100%;
-    align-items: flex-start;
+    justify-content: flex-start;
+    span {
+      margin-left: 10px;
+      padding-top: 8px;
+      font-size: 12px;
+      font-weight: bold;
+    }
   }
   &__questions {
     width: 100%;
