@@ -13,6 +13,7 @@
           href="https://github.com/ahmetilhan24/zelzele.io"
           target="_blank"
           class="opensource"
+          vertical-center
         >
           <img
             src="../../assets/svg/opensource.svg"
@@ -63,6 +64,12 @@ const { $dayjs } = useNuxtApp();
           position: absolute;
           right: -5px;
           top: -5px;
+          @include small-device {
+            width: 16px;
+            height: 16px;
+            right: -2px;
+            top: -2px;
+          }
         }
         img {
           width: 100%;
