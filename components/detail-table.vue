@@ -19,11 +19,11 @@
       </tr>
       <tr>
         <th>Derinlik</th>
-        <td>{{ data.Depth }}</td>
+        <td>{{ data.Depth }} Km</td>
       </tr>
       <tr>
         <th>Büyüklük</th>
-        <td>{{ data.Magnitude }}</td>
+        <td>{{ data.Magnitude }} MW</td>
       </tr>
     </tbody>
   </table>
