@@ -254,6 +254,7 @@ const closeEarthquakeDetailModalHandler = () => {
     top: 8px;
     width: 30px;
     cursor: pointer;
+    z-index: 1;
     @include small-device {
       width: 20px;
     }
