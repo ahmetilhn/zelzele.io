@@ -46,16 +46,18 @@ const { $dayjs } = useNuxtApp();
     td,
     th {
       width: 100%;
-      padding: 10px;
     }
     td {
       border: 1px solid $dark;
       font-weight: bold;
+      padding: 10px;
     }
     th {
+      text-align: left;
       background-color: $dark;
       color: $white;
       width: 30%;
+      padding-left: 15px;
     }
   }
 }
