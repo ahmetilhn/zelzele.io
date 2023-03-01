@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-
    <url>
-
-      
       <loc>https://zelzele.io/</loc>
       <lastmod>2023-02-26T14:31:23+00:00</lastmod>
-
       <changefreq>always</changefreq>
-
       <priority>1</priority>
-
    </url>
-
+   <url>
+      <loc>https://zelzele.io/info</loc>
+      <lastmod>2023-02-26T14:31:23+00:00</lastmod>
+      <changefreq>daily</changefreq>
+      <priority>0.80</priority>
+   </url>
 </urlset> 
