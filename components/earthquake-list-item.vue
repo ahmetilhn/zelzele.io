@@ -69,12 +69,35 @@
           @open-chart-detail-modal="openChartDetailModalHandler"
         />
       </BaseModal>
+      <BaseModal
+        v-if="isEarthquakeDetailModalVisible"
+        title="Deprem Detay"
+        @close="closeEarthquakeDetailModalHandler"
+      >
+        <DetailTable :data="data" />
+        <EarthquakesChart
+          v-if="allTimeData?.length"
+          :magnitude-val="getMagnitudeVal"
+          :all-time-data="allTimeData"
+          :width="chartStyle.modal.width"
+          :height="140"
+          :is-has-grid="true"
+          :active-earthquake="data"
+        />
+      </BaseModal>
+      <img
+        class="earthquake-item__detail-icon"
+        src="@/assets/svg/eye.svg"
+        alt="Detail modal icon"
+        @click="openEarthquakeDetailModal"
+      />
     </ClientOnly>
   </article>
 </template>
 <script setup lang="ts">
 import EarthquakesChart from "./earthquakes-chart.vue";
 import BaseModal from "./base-modal.vue";
+import DetailTable from "./detail-table.vue";
 import EarthquakeInterface from "~~/interfaces/earthquake.interface";
 import { magnitudeLevels } from "~~/constants/magnitude.constants";
 import { isMobile } from "~~/utils/screen.util";
@@ -83,9 +106,10 @@ interface Props {
   data: EarthquakeInterface;
   allTimeData: Array<EarthquakeInterface> | undefined;
 }
-const { $dayjs } = useNuxtApp();
+const { $dayjs, $gtm } = useNuxtApp();
 const { data, allTimeData } = defineProps<Props>();
 const isChartDetailModalVisible = ref(false);
+const isEarthquakeDetailModalVisible = ref(false);
 const dateFromNow = $dayjs(data.Date).from(new Date());
 
 const getMagnitudeVal = ((): string => {
@@ -101,7 +125,7 @@ const chartStyle = computed(() => {
   if (process.client) {
     return {
       modal: {
-        width: isMobile() ? window?.innerWidth - 50 : 436,
+        width: isMobile() ? window?.innerWidth - 43 : 436,
       },
       listing: {
         width: isMobile() ? 130 : 240,
@@ -116,6 +140,17 @@ const openChartDetailModalHandler = () => {
 const closeChartDetailModalHandler = () => {
   isChartDetailModalVisible.value = false;
 };
+const openEarthquakeDetailModal = () => {
+  $gtm.pushUIEvent({
+    eventCategory: "Earthquake Detail Click",
+    eventAction: data.Region.City + " " + data.Region.District,
+    eventLabel: "/",
+  });
+  isEarthquakeDetailModalVisible.value = true;
+};
+const closeEarthquakeDetailModalHandler = () => {
+  isEarthquakeDetailModalVisible.value = false;
+};
 </script>
 <style lang="scss" scoped>
 .earthquake-item {
@@ -124,6 +159,7 @@ const closeChartDetailModalHandler = () => {
   justify-content: space-between;
   margin: 10px 0;
   border-radius: 10px;
+  position: relative;
   @include small-device {
     margin: 5px 0;
     height: 100px;
@@ -164,6 +200,11 @@ const closeChartDetailModalHandler = () => {
         background-color: $red-light;
         color: $red;
       }
+    }
+    .detail-icon {
+      position: absolute;
+      width: 30px;
+      left: 0;
     }
     .content {
       align-items: flex-start;
@@ -210,6 +251,17 @@ const closeChartDetailModalHandler = () => {
     margin-right: 20px;
     @include small-device {
       margin-right: 5px;
+    }
+  }
+  &__detail-icon {
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    width: 30px;
+    cursor: pointer;
+    z-index: 1;
+    @include small-device {
+      width: 20px;
     }
   }
   .chart-detail-modal {

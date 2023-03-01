@@ -63,6 +63,8 @@ onUnmounted(() => {
   border-radius: 10px;
   transform: translateY(100%);
   animation: bottomToTop 0.1s forwards ease-out;
+  max-height: 90vh;
+  overflow-y: auto;
   &--mobile {
     width: 100vw;
     height: auto;
