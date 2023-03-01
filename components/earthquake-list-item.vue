@@ -85,12 +85,13 @@
           :active-earthquake="data"
         />
       </BaseModal>
-      <img
+      <div
         class="earthquake-item__detail-icon"
-        src="@/assets/svg/eye.svg"
-        alt="Detail modal icon"
+        vertical-center
         @click="openEarthquakeDetailModal"
-      />
+      >
+        <img src="@/assets/svg/eye.svg" alt="Detail modal icon" />
+      </div>
     </ClientOnly>
   </article>
 </template>
@@ -255,13 +256,23 @@ const closeEarthquakeDetailModalHandler = () => {
   }
   &__detail-icon {
     position: absolute;
-    right: 8px;
-    top: 8px;
-    width: 30px;
+    right: 0;
+    top: 0;
     cursor: pointer;
     z-index: 1;
+    width: 50px;
+    height: 50px;
+    align-items: flex-end;
+    padding-right: 15px;
     @include small-device {
-      width: 20px;
+      padding-right: 10px;
+      height: 40px;
+    }
+    img {
+      width: 30px;
+      @include small-device {
+        width: 20px;
+      }
     }
   }
   .chart-detail-modal {
