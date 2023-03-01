@@ -3,7 +3,7 @@
     <tbody>
       <tr>
         <th>Tarih</th>
-        <td>{{ data.Date }}</td>
+        <td>{{ $dayjs(data.Date).format("DD/MM/YYYY HH:MM:ss") }}</td>
       </tr>
       <tr>
         <th>Konum</th>
@@ -30,11 +30,11 @@
 </template>
 <script lang="ts" setup>
 import EarthquakeInterface from "~~/interfaces/earthquake.interface";
-
 type Props = {
   data: EarthquakeInterface;
 };
 const { data } = defineProps<Props>();
+const { $dayjs } = useNuxtApp();
 </script>
 
 <style lang="scss" scoped>
