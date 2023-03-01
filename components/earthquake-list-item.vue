@@ -1,20 +1,36 @@
 <template>
   <article class="earthquake-item" :class="getMagnitudeVal" horizontal-center>
-    <div class="earthquake-item__left" horizontal-center>
-      <h3 class="magnitude" :class="getMagnitudeVal" vertical-center>
+    <NuxtLink
+      :to="{
+        query: {
+          city: clearTurkishChars(data.Region.City),
+        },
+      }"
+      :title="data.Region.City + ' ' + data.Region.District + ' deprem'"
+      class="earthquake-item__left"
+      horizontal-center
+    >
+      <h3
+        class="magnitude"
+        :title="
+          data.Region.City + ' deprem ' + data.Magnitude + ' büyüklüğünde'
+        "
+        :class="getMagnitudeVal"
+        vertical-center
+      >
         {{ data.Magnitude }}
       </h3>
       <div class="content" vertical-center>
-        <h3 class="city">
+        <h1 class="city" :title="data.Region.City + ' deprem'">
           {{ data.Region.City }}
-        </h3>
+        </h1>
         <h4 class="district">{{ data.Region.District }}</h4>
         <h6 class="short-detail">
           {{ data.Depth }} km,
           <strong>{{ dateFromNow }}</strong>
         </h6>
       </div>
-    </div>
+    </NuxtLink>
     <div class="earthquake-item__right">
       <ClientOnly>
         <EarthquakesChart
@@ -62,6 +78,7 @@ import BaseModal from "./base-modal.vue";
 import EarthquakeInterface from "~~/interfaces/earthquake.interface";
 import { magnitudeLevels } from "~~/constants/magnitude.constants";
 import { isMobile } from "~~/utils/screen.util";
+import { clearTurkishChars } from "~~/utils/string.util";
 interface Props {
   data: EarthquakeInterface;
   allTimeData: Array<EarthquakeInterface> | undefined;
@@ -121,6 +138,8 @@ const closeChartDetailModalHandler = () => {
     background: linear-gradient(90deg, $white 0%, $red-light 100%);
   }
   &__left {
+    color: inherit;
+    text-decoration: none;
     .magnitude {
       width: 80px;
       height: 80px;

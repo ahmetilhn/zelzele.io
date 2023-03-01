@@ -58,6 +58,19 @@ export default defineNuxtConfig({
           name: "theme-color",
           content: "#ffffff",
         },
+        {
+          property: "og:title",
+          content: "Son Depremler",
+        },
+        {
+          property: "og:description",
+          content:
+            "Son depremleri görüntüleyip, detayları öğrenin, geçmiş depremlerle grafiksel olarak kıyaslayın",
+        },
+        {
+          property: "og:image",
+          content: "https://zelzele.io/_nuxt/logo.4cb0c464.svg",
+        },
       ],
       link: [
         {
