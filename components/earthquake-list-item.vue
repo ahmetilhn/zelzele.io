@@ -106,7 +106,7 @@ interface Props {
   data: EarthquakeInterface;
   allTimeData: Array<EarthquakeInterface> | undefined;
 }
-const { $dayjs } = useNuxtApp();
+const { $dayjs, $gtm } = useNuxtApp();
 const { data, allTimeData } = defineProps<Props>();
 const isChartDetailModalVisible = ref(false);
 const isEarthquakeDetailModalVisible = ref(false);
@@ -141,6 +141,11 @@ const closeChartDetailModalHandler = () => {
   isChartDetailModalVisible.value = false;
 };
 const openEarthquakeDetailModal = () => {
+  $gtm.pushUIEvent({
+    eventCategory: "Earthquake Detail Click",
+    eventAction: data.Region.City + " " + data.Region.District,
+    eventLabel: "/",
+  });
   isEarthquakeDetailModalVisible.value = true;
 };
 const closeEarthquakeDetailModalHandler = () => {

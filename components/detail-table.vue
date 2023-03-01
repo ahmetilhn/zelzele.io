@@ -6,10 +6,6 @@
         <td>{{ $dayjs(data.Date).format("DD/MM/YYYY HH:MM:ss") }}</td>
       </tr>
       <tr>
-        <th>Konum</th>
-        <td>{{ data.Region.District + " - " + data.Region.City }}</td>
-      </tr>
-      <tr>
         <th>Enlem</th>
         <td>{{ data.Latitude }}</td>
       </tr>
@@ -24,6 +20,10 @@
       <tr>
         <th>Büyüklük</th>
         <td>{{ data.Magnitude }} MW</td>
+      </tr>
+      <tr>
+        <th>Konum</th>
+        <td>{{ data.Region.District + " - " + data.Region.City }}</td>
       </tr>
     </tbody>
   </table>
