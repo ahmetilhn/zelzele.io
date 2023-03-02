@@ -202,11 +202,6 @@ const closeEarthquakeDetailModalHandler = () => {
         color: $red;
       }
     }
-    .detail-icon {
-      position: absolute;
-      width: 30px;
-      left: 0;
-    }
     .content {
       align-items: flex-start;
       height: 80px;
@@ -269,7 +264,7 @@ const closeEarthquakeDetailModalHandler = () => {
       height: 40px;
     }
     img {
-      width: 30px;
+      width: 24px;
       @include small-device {
         width: 20px;
       }
