@@ -137,7 +137,6 @@ onMounted(() => {
       stroke-dashoffset: 1000;
       animation: dashEffect 5s forwards;
       stroke-linecap: round;
-      cursor: crosshair;
     }
     circle {
       r: 2px;
