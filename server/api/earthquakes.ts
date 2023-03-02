@@ -40,7 +40,11 @@ export default defineEventHandler(async (event) => {
 
 const parseRegion = (region: string): EarthquakeInterface["Region"] => {
   let [district, city] = region?.split("("); // -> istanbul)
-  city = city.split(")")[0]; // -> istanbul
+  city = city?.split(")")[0]; // -> istanbul
+  if (!city) {
+    city = district;
+    district = "-";
+  }
   return {
     City: city,
     District: district,
