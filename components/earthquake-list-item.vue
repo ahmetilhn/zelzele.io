@@ -21,9 +21,9 @@
         {{ data.Magnitude }}
       </h3>
       <div class="content" vertical-center>
-        <h1 class="city" :title="data.Region.City + ' deprem'">
+        <h2 class="city" :title="data.Region.City + ' deprem'">
           {{ data.Region.City }}
-        </h1>
+        </h2>
         <h4 class="district">{{ data.Region.District }}</h4>
         <h6 class="short-detail">
           {{ data.Depth }} km,
