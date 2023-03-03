@@ -8,3 +8,7 @@ export const clearTurkishChars = (val: string) => {
   });
   return cleanedVal.toLowerCase().trim();
 };
+
+export const capitalizeFirstLetter = (val: string): string => {
+  return val.charAt(0).toUpperCase() + val.slice(1);
+};
