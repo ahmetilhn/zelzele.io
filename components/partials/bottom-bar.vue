@@ -126,7 +126,7 @@ const click = (menu: MenuType) => {
   bottom: 0;
   left: 0;
   z-index: 999;
-  height: calc(54px + env(safe-area-inset-bottom));
+  height: calc(44px + env(safe-area-inset-bottom));
   box-shadow: 0px -10px 40px 4px rgba(0, 0, 0, 0.1);
   border: 1px solid $gray-three;
   border-bottom: none;
