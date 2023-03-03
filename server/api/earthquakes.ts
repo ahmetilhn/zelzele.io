@@ -24,8 +24,8 @@ export default defineEventHandler(async (event) => {
           data.push({
             ID: $(ID).text(),
             Date: $(CreatedDate).text().replaceAll("-", "/"),
-            Latitude: $(Latitude).text(),
-            Longitude: $(Longitude).text(),
+            Latitude: Number($(Latitude).text()),
+            Longitude: Number($(Longitude).text()),
             Depth: Number($(Depth).text()),
             Magnitude: Number($(Magnitude).text()),
             Region: parseRegion($(Region).text()),

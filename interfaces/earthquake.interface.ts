@@ -3,8 +3,8 @@ interface EarthquakeInterface {
   Date: string;
   Magnitude: number;
   Type: string;
-  Latitude: string;
-  Longitude: string;
+  Latitude: number;
+  Longitude: number;
   Depth: number;
   Region: {
     City: string;

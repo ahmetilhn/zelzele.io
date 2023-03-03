@@ -1,6 +1,6 @@
 <template>
   <main class="layout" vertical-center>
-    <AppHeader />
+    <AppHeader v-if="route.name !== 'map'" />
     <div class="layout__content">
       <slot />
     </div>
@@ -23,6 +23,7 @@ import AppHeader from "~~/components/partials/app-header.vue";
 import BottomBar from "~~/components/partials/bottom-bar.vue";
 import Loader from "~~/components/loader.vue";
 const isLoading = ref(false);
+const route = useRoute();
 const nuxtApp = useNuxtApp();
 nuxtApp.hook("page:start", () => {
   isLoading.value = true;
