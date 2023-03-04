@@ -4,7 +4,7 @@ export default defineNuxtConfig({
     public: {
       appVersion: packageJson.version,
       appTitle: "Son Depremler, Deprem Analiz ve Canlı Takip",
-      appDescripiton:
+      appDescription:
         "Deprem analizi yapabilir, son depremleri öğrenebilir tüm depremler ile karşılaştırabilirsiniz.",
     },
   },

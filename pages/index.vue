@@ -32,7 +32,7 @@ if (route.query.city) {
         content:
           capitalizeFirstLetter(route?.query?.city) +
           " şehri için " +
-          config.public.appDescripiton,
+          config.public.appDescription,
       },
     ],
   });

@@ -9,6 +9,7 @@
       :title="data.Region.City + ' ' + data.Region.District + ' deprem'"
       class="earthquake-item__left"
       horizontal-center
+      @click="changePageTitle(data.Region.City)"
     >
       <h3
         class="magnitude"
@@ -108,6 +109,7 @@ interface Props {
   allTimeData: Array<EarthquakeInterface> | undefined;
 }
 const { $dayjs, $gtm } = useNuxtApp();
+const config = useRuntimeConfig();
 const { data, allTimeData } = defineProps<Props>();
 const isChartDetailModalVisible = ref(false);
 const isEarthquakeDetailModalVisible = ref(false);
@@ -151,6 +153,12 @@ const openEarthquakeDetailModal = () => {
 };
 const closeEarthquakeDetailModalHandler = () => {
   isEarthquakeDetailModalVisible.value = false;
+};
+const changePageTitle = (val: string) => {
+  document.title = val + " " + config.public.appTitle;
+  document
+    .querySelector('meta[name="description"]')
+    ?.setAttribute("content", val + " " + config.public.appDescription);
 };
 </script>
 <style lang="scss" scoped>
