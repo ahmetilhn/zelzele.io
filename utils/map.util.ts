@@ -75,7 +75,8 @@ const injectCode = (): void => {
 
 const startMap = (): void => {
   const script = document.createElement("script");
-  script.src = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAP_API_KEY}&callback=initMap&v=weekly`;
+  script.src =
+    "https://maps.googleapis.com/maps/api/js?key=AIzaSyAAmzn3Lx3f2kEY5kJwfGzZLmTvlmsIA_s&callback=initMap&v=weekly";
   script.async = true;
   script.defer = true;
   document.getElementsByTagName("head")[0].appendChild(script);
