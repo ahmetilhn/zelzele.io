@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@pinia/nuxt": "^0.4.7",
+    "afad-scraper": "^1.0.2",
     "cheerio": "^1.0.0-rc.12",
     "dayjs": "^1.11.7",
     "pinia": "^2.0.32",
