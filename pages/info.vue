@@ -9,16 +9,16 @@
       <div class="item">
         <h4>Deprem Verileri Nereden Çekiliyor?</h4>
         <p>
-          Veriler Affad'dan anlık olarak çekilmekte olup hiçbir manipulasyona
+          Veriler Afad'dan anlık olarak çekilmekte olup hiçbir manipulasyona
           uğratılmamaktadır. Kaynak:
-          <a href="https://deprem.afad.gov.tr/last-earthquakes.html">Affad</a>
+          <a href="https://deprem.afad.gov.tr/last-earthquakes.html">Afad</a>
           <br />
         </p>
       </div>
       <div class="item">
         <h4>Tarihsel Deprem Grafiği Nasıl Oluşturuluyor?</h4>
         <p>
-          Affad'dan gelen X şehrine ait tüm veriler belirli hesaplamalardan
+          Afad'dan gelen X şehrine ait tüm veriler belirli hesaplamalardan
           geçirilerek grafiğe dönüştürülür. Bu işlemde maksimum deprem şiddeti:
           <strong>9.5</strong> referans alınıp bu uç noktasına göre
           hesaplanmaktadır.
@@ -59,7 +59,7 @@
         <strong
           >Bu sitedeki veriler
           <a href="https://deprem.afad.gov.tr/last-earthquakes.html"
-            >Affad'dan</a
+            >Afad'dan</a
           >
           çekilmekte olup herhangi bir manipulasyona uğratılmamaktadır.
           <a href="https://zelzele.io/">zelzele.io</a> bu verileri sadece aynen
