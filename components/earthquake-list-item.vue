@@ -179,22 +179,24 @@ const share = async () => {
   htmlToImage.toBlob(elem).then((dataBlob) => {
     if (!dataBlob) return;
     if (navigator && navigator.share && isMobile()) {
-      const file = new File([dataBlob], "deprem.png", {
-        type: "image/png",
-      });
+      const file = new File(
+        [dataBlob],
+        `${clearTurkishChars(data.Region.City)}-deprem.png`,
+        {
+          type: "image/png",
+        }
+      );
       setTimeout(() => {
         if (file.size) {
           navigator
             .share({
               title: `${data.Region.City} + ' ' + ${data.Region.District} Depremi}`,
-              text: "Son Deprem ve Tarihsel Deprem Grafiği",
+              text: `${data.Region.City}'de ${data.Magnitude} büyüklüğünde deprem meydana geldi. [${data.Date}}`,
+              url: window.location.href,
               files: [file],
             })
             .then(() => {
-              alert("is shared");
-            })
-            .catch((error) => {
-              alert("is not shared", error);
+              alert("Paylaşım başarılı");
             });
         }
       }, 700);
