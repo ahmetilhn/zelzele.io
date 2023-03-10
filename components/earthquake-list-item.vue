@@ -190,8 +190,8 @@ const share = async () => {
         if (file.size) {
           navigator
             .share({
-              title: `${data.Region.City} ${data.Region.District} Depremi`,
-              text: `${data.Region.City}'de ${data.Magnitude} büyüklüğünde deprem meydana geldi. ${data.Date}`,
+              title: `Son Dakika: ${data.Region.City} ${data.Region.District} ilçesinde Deprem Meydana Geldi!`,
+              text: `${data.Region.City}'da ${data.Date} tarihinde ${data.Magnitude} büyüklüğünde deprem meydana geldi. Link: ${window.location.href}`,
               url: window.location.href,
               files: [file],
             })
