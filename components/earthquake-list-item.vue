@@ -201,10 +201,7 @@ const share = async () => {
         }
       }, 700);
     } else {
-      download(
-        dataBlob,
-        `${data.Region.City + data.Region.District}-depremi.png`
-      );
+      download(dataBlob, `${clearTurkishChars(data.Region.City)}-depremi.png`);
     }
   });
 };
