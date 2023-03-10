@@ -199,7 +199,7 @@ const share = async () => {
               alert("Paylaşım başarılı");
             });
         }
-      }, 700);
+      }, 300);
     } else {
       download(dataBlob, `${clearTurkishChars(data.Region.City)}-depremi.png`);
     }
