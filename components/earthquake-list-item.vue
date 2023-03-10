@@ -186,41 +186,42 @@ const changePageTitle = (val: string) => {
 const share = async () => {
   isSnapshotLoading.value = true;
   const elem = document.getElementById("modal");
-  htmlToImage.toBlob(elem).then((dataBlob) => {
-    if (!dataBlob) return;
-    try {
-      if (navigator && navigator.share && isMobile()) {
-        const file = new File(
-          [dataBlob],
-          `${clearTurkishChars(data.Region.City)}-deprem.png`,
-          {
-            type: "image/png",
-          }
-        );
-        setTimeout(() => {
-          if (file.size) {
-            navigator
-              .share({
-                title: `Son Dakika: ${data.Region.City} ${data.Region.District} ilçesinde Deprem Meydana Geldi!`,
-                files: [file],
-              })
-              .then(() => {
-                alert("Paylaşım başarılı");
-              });
-          }
-        }, 300);
-      } else {
-        download(
-          dataBlob,
-          `${clearTurkishChars(data.Region.City)}-depremi.png`
-        );
+  setTimeout(() => {
+    htmlToImage.toBlob(elem).then((dataBlob) => {
+      if (!dataBlob) return;
+      try {
+        if (navigator && navigator.share && isMobile()) {
+          const file = new File(
+            [dataBlob],
+            `${clearTurkishChars(data.Region.City)}-deprem.png`,
+            {
+              type: "image/png",
+            }
+          );
+          setTimeout(() => {
+            if (file.size) {
+              navigator
+                .share({
+                  files: [file],
+                })
+                .then(() => {
+                  alert("Paylaşım başarılı");
+                });
+            }
+          }, 300);
+        } else {
+          download(
+            dataBlob,
+            `${clearTurkishChars(data.Region.City)}-depremi.png`
+          );
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        isSnapshotLoading.value = false;
       }
-    } catch (error) {
-      console.error(error);
-    } finally {
-      isSnapshotLoading.value = false;
-    }
-  });
+    });
+  }, 300);
 };
 </script>
 <style lang="scss" scoped>
