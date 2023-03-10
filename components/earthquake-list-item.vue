@@ -182,18 +182,22 @@ const share = async () => {
       const file = new File([dataBlob], "deprem.png", {
         type: "image/png",
       });
-      navigator
-        .share({
-          title: `${data.Region.City} + ' ' + ${data.Region.District} Depremi}`,
-          text: "Son Deprem ve Tarihsel Deprem Grafiği",
-          files: [file],
-        })
-        .then(() => {
-          alert("is shared");
-        })
-        .catch((error) => {
-          alert("is not shared");
-        });
+      setTimeout(() => {
+        if (file.size) {
+          navigator
+            .share({
+              title: `${data.Region.City} + ' ' + ${data.Region.District} Depremi}`,
+              text: "Son Deprem ve Tarihsel Deprem Grafiği",
+              files: [file],
+            })
+            .then(() => {
+              alert("is shared");
+            })
+            .catch((error) => {
+              alert("is not shared", error);
+            });
+        }
+      }, 700);
     } else {
       download(
         dataBlob,
