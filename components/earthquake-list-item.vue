@@ -111,6 +111,7 @@
       >
         <img src="@/assets/svg/eye.svg" alt="Detail modal icon" />
       </div>
+      <Loader v-if="isSnapshotLoading" />
     </ClientOnly>
   </article>
 </template>
@@ -118,6 +119,7 @@
 import EarthquakesChart from "./earthquakes-chart.vue";
 import BaseModal from "./base-modal.vue";
 import DetailTable from "./detail-table.vue";
+import Loader from "./loader.vue";
 import EarthquakeInterface from "~~/interfaces/earthquake.interface";
 import { magnitudeLevels } from "~~/constants/magnitude.constants";
 import { isMobile } from "~~/utils/screen.util";
@@ -199,9 +201,6 @@ const share = async () => {
           if (file.size) {
             navigator
               .share({
-                title: `Son Dakika: ${data.Region.City} ${data.Region.District} ilçesinde Deprem Meydana Geldi!`,
-                text: `${data.Region.City}'da ${data.Date} tarihinde ${data.Magnitude} büyüklüğünde deprem meydana geldi. Link: ${window.location.href}`,
-                url: window.location.href,
                 files: [file],
               })
               .then(() => {
