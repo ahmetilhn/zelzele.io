@@ -52,6 +52,7 @@
         :title="data.Region.City + ' Deprem Grafiği'"
         class="chart-detail-modal"
         :is-close-icon-visible="true"
+        :is-snapshot-loading="false"
         @close="closeChartDetailModalHandler"
       >
         <template v-slot:content>
@@ -79,6 +80,7 @@
         class="earthquake-detail-modal"
         @close="closeEarthquakeDetailModalHandler"
         :is-close-icon-visible="!isSnapshotLoading"
+        :is-snapshot-loading="isSnapshotLoading"
       >
         <template v-slot:content>
           <DetailTable :data="data" />

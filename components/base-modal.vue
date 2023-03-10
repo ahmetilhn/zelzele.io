@@ -1,10 +1,16 @@
 <template>
   <BGOverlay @outside-click="outsideClickHandler">
-    <div id="modal" :class="{ modal: true, 'modal--mobile': isMobile() }">
+    <div
+      id="modal"
+      :class="{
+        modal: true,
+        'modal--mobile': isMobile() && !isSnapshotLoading,
+      }"
+    >
       <header class="modal__header" horizontal-center>
         <div
           @touchmove="close"
-          v-if="isMobile()"
+          v-if="isMobile() && !isSnapshotLoading"
           class="bar-line"
           vertical-center
         >
@@ -38,9 +44,10 @@ import { isMobile } from "~~/utils/screen.util";
 type Props = {
   title: string;
   isCloseIconVisible?: boolean;
+  isSnapshotLoading?: boolean;
 };
 const emit = defineEmits(["close"]);
-const { title, isCloseIconVisible } = defineProps<Props>();
+const { title, isCloseIconVisible, isSnapshotLoading } = defineProps<Props>();
 const close = () => {
   emit("close");
 };
@@ -68,6 +75,7 @@ onUnmounted(() => {
   transform: translateY(100%);
   animation: bottomToTop 0.1s forwards ease-out;
   max-height: 90vh;
+  max-width: 100%;
   overflow-y: auto;
   &--mobile {
     width: 100vw;
