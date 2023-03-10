@@ -1,6 +1,6 @@
 <template>
   <BGOverlay @outside-click="outsideClickHandler">
-    <div :class="{ modal: true, 'modal--mobile': isMobile() }">
+    <div id="modal" :class="{ modal: true, 'modal--mobile': isMobile() }">
       <header class="modal__header" horizontal-center>
         <div
           @touchmove="close"

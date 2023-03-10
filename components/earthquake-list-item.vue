@@ -78,7 +78,6 @@
         title="Deprem Detay"
         class="earthquake-detail-modal"
         @close="closeEarthquakeDetailModalHandler"
-        id="detail_content"
         :is-close-icon-visible="!isSnapshotLoading"
       >
         <template v-slot:content>
@@ -182,7 +181,7 @@ const changePageTitle = (val: string) => {
 };
 const share = async () => {
   isSnapshotLoading.value = true;
-  const elem = document.getElementById("detail_content");
+  const elem = document.getElementById("modal");
   htmlToImage.toBlob(elem).then((dataBlob) => {
     if (!dataBlob) return;
     try {
