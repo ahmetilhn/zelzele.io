@@ -173,14 +173,38 @@ const changePageTitle = (val: string) => {
     margin: 5px 0;
     height: 100px;
   }
+  &--last {
+    border-width: 1px;
+    border-style: dashed;
+    &::after {
+      content: "Son Deprem";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: $gray-one;
+      background-color: $dark;
+      padding: 8px;
+      font-size: 10px;
+      border-radius: 20px;
+      line-height: 10px;
+      z-index: 10;
+      @include small-device {
+        font-size: 9px;
+      }
+    }
+  }
   &.little {
     background: linear-gradient(90deg, $white 0%, $gray-one 100%);
+    border-color: $gray-three;
   }
   &.medium {
     background: linear-gradient(90deg, $white 0%, $orange-light 100%);
+    border-color: $orange;
   }
   &.much {
     background: linear-gradient(90deg, $white 0%, $red-light 100%);
+    border-color: $red;
   }
   &__left {
     color: inherit;
