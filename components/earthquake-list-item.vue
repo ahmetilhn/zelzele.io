@@ -174,20 +174,23 @@ const changePageTitle = (val: string) => {
     .querySelector('meta[name="description"]')
     ?.setAttribute("content", val + " " + config.public.appDescription);
 };
-const share = () => {
+const share = async () => {
   const elem = document.getElementById("detail_content");
-  htmlToImage.toBlob(elem).then(function (dataBlob) {
+  htmlToImage.toBlob(elem).then((dataBlob) => {
     if (!dataBlob) return;
     if (navigator && navigator.share && isMobile()) {
+      const file = new File([dataBlob], "deprem.png", {
+        type: "image/png",
+      });
       navigator.share({
         title: `${data.Region.City} + ' ' + ${data.Region.District} Depremi}`,
         text: "Son Deprem ve Tarihsel Deprem Grafiği",
-        files: [dataBlob],
+        files: [file],
       });
     } else {
       download(
         dataBlob,
-        `${data.Region.City} ${data.Region.District} Depremi.png`
+        `${data.Region.City + data.Region.District}-depremi.png`
       );
     }
   });
