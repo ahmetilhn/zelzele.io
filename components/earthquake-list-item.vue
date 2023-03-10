@@ -212,7 +212,7 @@ const share = async () => {
         } else {
           download(
             dataBlob,
-            `${clearTurkishChars(data.Region.City)}-depremi.png`
+            `${clearTurkishChars(data.Region.City)}-deprem.png`
           );
         }
       } catch (error) {
