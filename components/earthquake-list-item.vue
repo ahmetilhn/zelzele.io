@@ -202,7 +202,6 @@ const share = async () => {
             navigator
               .share({
                 title: `Son Dakika: ${data.Region.City} ${data.Region.District} ilçesinde Deprem Meydana Geldi!`,
-                text: `${data.Region.City}'da ${data.Date} tarihinde ${data.Magnitude} büyüklüğünde deprem meydana geldi. Link: ${window.location.href}`,
                 files: [file],
               })
               .then(() => {
