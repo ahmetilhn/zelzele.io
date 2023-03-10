@@ -5,6 +5,9 @@
       :key="key"
       :data="item"
       :all-time-data="getAllTimeDataForCustomEQ(item.Region.City)"
+      :class="{
+        'earthquake-item--last': key === 0,
+      }"
     />
   </div>
 </template>
