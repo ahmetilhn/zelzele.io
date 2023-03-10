@@ -51,6 +51,7 @@
         v-if="isChartDetailModalVisible"
         :title="data.Region.City + ' Deprem Grafiği'"
         class="chart-detail-modal"
+        :is-close-icon-visible="true"
         @close="closeChartDetailModalHandler"
       >
         <template v-slot:content>
@@ -77,22 +78,26 @@
         title="Deprem Detay"
         class="earthquake-detail-modal"
         @close="closeEarthquakeDetailModalHandler"
+        id="detail_content"
+        :is-close-icon-visible="!isSnapshotLoading"
       >
         <template v-slot:content>
-          <div id="detail_content">
-            <DetailTable :data="data" />
-            <EarthquakesChart
-              v-if="allTimeData?.length"
-              :magnitude-val="getMagnitudeVal"
-              :all-time-data="allTimeData"
-              :width="chartStyle.modal.width"
-              :height="140"
-              :is-has-grid="true"
-              :active-earthquake="data"
-            />
-          </div>
+          <DetailTable :data="data" />
+          <EarthquakesChart
+            v-if="allTimeData?.length"
+            :magnitude-val="getMagnitudeVal"
+            :all-time-data="allTimeData"
+            :width="chartStyle.modal.width"
+            :height="140"
+            :is-has-grid="true"
+            :active-earthquake="data"
+          />
+          <span class="marker" v-if="isSnapshotLoading"
+            >Bu görsel <strong><u>www.zelzele.io</u></strong> sitesinden
+            alınmıştır.</span
+          >
         </template>
-        <template v-slot:footer>
+        <template v-if="!isSnapshotLoading" v-slot:footer>
           <button class="share-btn" @click="share">
             {{ isMobile() ? "Paylaş" : "İndir" }}
           </button>
@@ -126,6 +131,7 @@ const { $dayjs, $gtm } = useNuxtApp();
 const config = useRuntimeConfig();
 const { data, allTimeData } = defineProps<Props>();
 const isChartDetailModalVisible = ref(false);
+const isSnapshotLoading = ref(false);
 const isEarthquakeDetailModalVisible = ref(false);
 const dateFromNow = $dayjs(data.Date).from(new Date());
 
@@ -175,33 +181,43 @@ const changePageTitle = (val: string) => {
     ?.setAttribute("content", val + " " + config.public.appDescription);
 };
 const share = async () => {
+  isSnapshotLoading.value = true;
   const elem = document.getElementById("detail_content");
   htmlToImage.toBlob(elem).then((dataBlob) => {
     if (!dataBlob) return;
-    if (navigator && navigator.share && isMobile()) {
-      const file = new File(
-        [dataBlob],
-        `${clearTurkishChars(data.Region.City)}-deprem.png`,
-        {
-          type: "image/png",
-        }
-      );
-      setTimeout(() => {
-        if (file.size) {
-          navigator
-            .share({
-              title: `Son Dakika: ${data.Region.City} ${data.Region.District} ilçesinde Deprem Meydana Geldi!`,
-              text: `${data.Region.City}'da ${data.Date} tarihinde ${data.Magnitude} büyüklüğünde deprem meydana geldi. Link: ${window.location.href}`,
-              url: window.location.href,
-              files: [file],
-            })
-            .then(() => {
-              alert("Paylaşım başarılı");
-            });
-        }
-      }, 300);
-    } else {
-      download(dataBlob, `${clearTurkishChars(data.Region.City)}-depremi.png`);
+    try {
+      if (navigator && navigator.share && isMobile()) {
+        const file = new File(
+          [dataBlob],
+          `${clearTurkishChars(data.Region.City)}-deprem.png`,
+          {
+            type: "image/png",
+          }
+        );
+        setTimeout(() => {
+          if (file.size) {
+            navigator
+              .share({
+                title: `Son Dakika: ${data.Region.City} ${data.Region.District} ilçesinde Deprem Meydana Geldi!`,
+                text: `${data.Region.City}'da ${data.Date} tarihinde ${data.Magnitude} büyüklüğünde deprem meydana geldi. Link: ${window.location.href}`,
+                url: window.location.href,
+                files: [file],
+              })
+              .then(() => {
+                alert("Paylaşım başarılı");
+              });
+          }
+        }, 300);
+      } else {
+        download(
+          dataBlob,
+          `${clearTurkishChars(data.Region.City)}-depremi.png`
+        );
+      }
+    } catch (error) {
+      console.error(error);
+    } finally {
+      isSnapshotLoading.value = false;
     }
   });
 };
@@ -364,10 +380,12 @@ const share = async () => {
   }
   .earthquake-detail-modal {
     :deep(.modal__content) {
-      justify-content: center;
-      #detail_content {
-        background-color: $white;
+      justify-content: flex-end;
+      .marker {
+        text-align: right;
         width: 100%;
+        font-size: 10px;
+        margin-top: 10px;
       }
     }
     :deep(.modal__footer) {

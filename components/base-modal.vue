@@ -11,7 +11,7 @@
           <hr />
         </div>
         <h2 class="title">{{ title }}</h2>
-        <div class="close" @click="close">
+        <div v-if="isCloseIconVisible" class="close" @click="close">
           <svg viewBox="0 0 24 24" fill="none">
             <path
               fill-rule="evenodd"
@@ -37,9 +37,10 @@ import BGOverlay from "./bg-overlay.vue";
 import { isMobile } from "~~/utils/screen.util";
 type Props = {
   title: string;
+  isCloseIconVisible?: boolean;
 };
 const emit = defineEmits(["close"]);
-const { title } = defineProps<Props>();
+const { title, isCloseIconVisible } = defineProps<Props>();
 const close = () => {
   emit("close");
 };
