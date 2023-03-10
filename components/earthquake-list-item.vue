@@ -51,40 +51,58 @@
         v-if="isChartDetailModalVisible"
         :title="data.Region.City + ' Deprem Grafiği'"
         class="chart-detail-modal"
+        :is-close-icon-visible="true"
+        :is-snapshot-loading="false"
         @close="closeChartDetailModalHandler"
       >
-        <p>
-          Bu grafik ilki
-          <strong>{{ $dayjs(allTimeData[0].Date).fromNow(true) }} </strong>
-          önce olan
-          <strong>{{ allTimeData?.length }}</strong> deprem verisiyle
-          oluşturulmuştur.
-        </p>
-        <EarthquakesChart
-          :magnitude-val="getMagnitudeVal"
-          :all-time-data="allTimeData"
-          :width="chartStyle.modal.width"
-          :height="150"
-          :is-has-grid="true"
-          :active-earthquake="data"
-          @open-chart-detail-modal="openChartDetailModalHandler"
-        />
+        <template v-slot:content>
+          <p>
+            Bu grafik ilki
+            <strong>{{ $dayjs(allTimeData[0].Date).fromNow(true) }} </strong>
+            önce olan
+            <strong>{{ allTimeData?.length }}</strong> deprem verisiyle
+            oluşturulmuştur.
+          </p>
+          <EarthquakesChart
+            :magnitude-val="getMagnitudeVal"
+            :all-time-data="allTimeData"
+            :width="chartStyle.modal.width"
+            :height="150"
+            :is-has-grid="true"
+            :active-earthquake="data"
+            @open-chart-detail-modal="openChartDetailModalHandler"
+          />
+        </template>
       </BaseModal>
       <BaseModal
         v-if="isEarthquakeDetailModalVisible"
         title="Deprem Detay"
+        class="earthquake-detail-modal"
         @close="closeEarthquakeDetailModalHandler"
+        :is-close-icon-visible="!isSnapshotLoading"
+        :is-snapshot-loading="isSnapshotLoading"
       >
-        <DetailTable :data="data" />
-        <EarthquakesChart
-          v-if="allTimeData?.length"
-          :magnitude-val="getMagnitudeVal"
-          :all-time-data="allTimeData"
-          :width="chartStyle.modal.width"
-          :height="140"
-          :is-has-grid="true"
-          :active-earthquake="data"
-        />
+        <template v-slot:content>
+          <DetailTable :data="data" />
+          <EarthquakesChart
+            v-if="allTimeData?.length"
+            :magnitude-val="getMagnitudeVal"
+            :all-time-data="allTimeData"
+            :width="chartStyle.modal.width"
+            :height="140"
+            :is-has-grid="true"
+            :active-earthquake="data"
+          />
+          <span class="marker" v-if="isSnapshotLoading"
+            >Bu görsel <strong><u>www.zelzele.io</u></strong> sitesinden
+            alınmıştır.</span
+          >
+        </template>
+        <template v-if="!isSnapshotLoading" v-slot:footer>
+          <button class="share-btn" @click="share">
+            {{ isMobile() ? "Paylaş" : "İndir" }}
+          </button>
+        </template>
       </BaseModal>
       <div
         class="earthquake-item__detail-icon"
@@ -93,6 +111,7 @@
       >
         <img src="@/assets/svg/eye.svg" alt="Detail modal icon" />
       </div>
+      <Loader v-if="isSnapshotLoading" />
     </ClientOnly>
   </article>
 </template>
@@ -100,10 +119,13 @@
 import EarthquakesChart from "./earthquakes-chart.vue";
 import BaseModal from "./base-modal.vue";
 import DetailTable from "./detail-table.vue";
+import Loader from "./loader.vue";
 import EarthquakeInterface from "~~/interfaces/earthquake.interface";
 import { magnitudeLevels } from "~~/constants/magnitude.constants";
 import { isMobile } from "~~/utils/screen.util";
 import { clearTurkishChars } from "~~/utils/string.util";
+import * as htmlToImage from "html-to-image";
+import download from "downloadjs";
 interface Props {
   data: EarthquakeInterface;
   allTimeData: Array<EarthquakeInterface> | undefined;
@@ -112,6 +134,7 @@ const { $dayjs, $gtm } = useNuxtApp();
 const config = useRuntimeConfig();
 const { data, allTimeData } = defineProps<Props>();
 const isChartDetailModalVisible = ref(false);
+const isSnapshotLoading = ref(false);
 const isEarthquakeDetailModalVisible = ref(false);
 const dateFromNow = $dayjs(data.Date).from(new Date());
 
@@ -159,6 +182,46 @@ const changePageTitle = (val: string) => {
   document
     .querySelector('meta[name="description"]')
     ?.setAttribute("content", val + " " + config.public.appDescription);
+};
+const share = async () => {
+  isSnapshotLoading.value = true;
+  const elem = document.getElementById("modal");
+  setTimeout(() => {
+    htmlToImage.toBlob(elem).then((dataBlob) => {
+      if (!dataBlob) return;
+      try {
+        if (navigator && navigator.share && isMobile()) {
+          const file = new File(
+            [dataBlob],
+            `${clearTurkishChars(data.Region.City)}-deprem.png`,
+            {
+              type: "image/png",
+            }
+          );
+          setTimeout(() => {
+            if (file.size) {
+              navigator
+                .share({
+                  files: [file],
+                })
+                .then(() => {
+                  alert("Paylaşım başarılı");
+                });
+            }
+          }, 300);
+        } else {
+          download(
+            dataBlob,
+            `${clearTurkishChars(data.Region.City)}-deprem.png`
+          );
+        }
+      } catch (error) {
+        console.error(error);
+      } finally {
+        isSnapshotLoading.value = false;
+      }
+    });
+  }, 300);
 };
 </script>
 <style lang="scss" scoped>
@@ -314,6 +377,26 @@ const changePageTitle = (val: string) => {
         strong {
           color: $dark;
         }
+      }
+    }
+  }
+  .earthquake-detail-modal {
+    :deep(.modal__content) {
+      justify-content: flex-end;
+      .marker {
+        text-align: right;
+        width: 100%;
+        font-size: 10px;
+        margin-top: 10px;
+      }
+    }
+    :deep(.modal__footer) {
+      .share-btn {
+        border: none;
+        background-color: $dark;
+        padding: 7px 20px;
+        color: $white;
+        border-radius: 3px;
       }
     }
   }

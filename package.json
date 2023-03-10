@@ -36,6 +36,8 @@
     "afad-scraper": "^1.0.2",
     "cheerio": "^1.0.0-rc.12",
     "dayjs": "^1.11.7",
+    "downloadjs": "^1.4.7",
+    "html-to-image": "^1.11.11",
     "pinia": "^2.0.32",
     "sass": "^1.58.3",
     "sass-loader": "^13.2.0"

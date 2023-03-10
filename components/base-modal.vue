@@ -1,17 +1,23 @@
 <template>
   <BGOverlay @outside-click="outsideClickHandler">
-    <div :class="{ modal: true, 'modal--mobile': isMobile() }">
+    <div
+      id="modal"
+      :class="{
+        modal: true,
+        'modal--mobile': isMobile() && !isSnapshotLoading,
+      }"
+    >
       <header class="modal__header" horizontal-center>
         <div
           @touchmove="close"
-          v-if="isMobile()"
+          v-if="isMobile() && !isSnapshotLoading"
           class="bar-line"
           vertical-center
         >
           <hr />
         </div>
         <h2 class="title">{{ title }}</h2>
-        <div class="close" @click="close">
+        <div v-if="isCloseIconVisible" class="close" @click="close">
           <svg viewBox="0 0 24 24" fill="none">
             <path
               fill-rule="evenodd"
@@ -23,8 +29,11 @@
         </div>
       </header>
       <main class="modal__content" vertical-center>
-        <slot />
+        <slot name="content" />
       </main>
+      <footer class="modal__footer" horizontal-center>
+        <slot name="footer" />
+      </footer>
     </div>
   </BGOverlay>
 </template>
@@ -34,9 +43,11 @@ import BGOverlay from "./bg-overlay.vue";
 import { isMobile } from "~~/utils/screen.util";
 type Props = {
   title: string;
+  isCloseIconVisible?: boolean;
+  isSnapshotLoading?: boolean;
 };
 const emit = defineEmits(["close"]);
-const { title } = defineProps<Props>();
+const { title, isCloseIconVisible, isSnapshotLoading } = defineProps<Props>();
 const close = () => {
   emit("close");
 };
@@ -64,6 +75,7 @@ onUnmounted(() => {
   transform: translateY(100%);
   animation: bottomToTop 0.1s forwards ease-out;
   max-height: 90vh;
+  max-width: 100%;
   overflow-y: auto;
   &--mobile {
     width: 100vw;
@@ -119,6 +131,10 @@ onUnmounted(() => {
   }
   &__content {
     margin-top: 25px;
+    width: 100%;
+  }
+  &__footer {
+    margin-top: 10px;
     width: 100%;
   }
 }
