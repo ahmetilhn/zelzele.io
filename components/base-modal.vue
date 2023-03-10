@@ -23,8 +23,11 @@
         </div>
       </header>
       <main class="modal__content" vertical-center>
-        <slot />
+        <slot name="content" />
       </main>
+      <footer class="modal__footer" horizontal-center>
+        <slot name="footer" />
+      </footer>
     </div>
   </BGOverlay>
 </template>
@@ -119,6 +122,10 @@ onUnmounted(() => {
   }
   &__content {
     margin-top: 25px;
+    width: 100%;
+  }
+  &__footer {
+    margin-top: 10px;
     width: 100%;
   }
 }

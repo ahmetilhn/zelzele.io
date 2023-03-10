@@ -53,38 +53,50 @@
         class="chart-detail-modal"
         @close="closeChartDetailModalHandler"
       >
-        <p>
-          Bu grafik ilki
-          <strong>{{ $dayjs(allTimeData[0].Date).fromNow(true) }} </strong>
-          önce olan
-          <strong>{{ allTimeData?.length }}</strong> deprem verisiyle
-          oluşturulmuştur.
-        </p>
-        <EarthquakesChart
-          :magnitude-val="getMagnitudeVal"
-          :all-time-data="allTimeData"
-          :width="chartStyle.modal.width"
-          :height="150"
-          :is-has-grid="true"
-          :active-earthquake="data"
-          @open-chart-detail-modal="openChartDetailModalHandler"
-        />
+        <template v-slot:content>
+          <p>
+            Bu grafik ilki
+            <strong>{{ $dayjs(allTimeData[0].Date).fromNow(true) }} </strong>
+            önce olan
+            <strong>{{ allTimeData?.length }}</strong> deprem verisiyle
+            oluşturulmuştur.
+          </p>
+          <EarthquakesChart
+            :magnitude-val="getMagnitudeVal"
+            :all-time-data="allTimeData"
+            :width="chartStyle.modal.width"
+            :height="150"
+            :is-has-grid="true"
+            :active-earthquake="data"
+            @open-chart-detail-modal="openChartDetailModalHandler"
+          />
+        </template>
       </BaseModal>
       <BaseModal
         v-if="isEarthquakeDetailModalVisible"
         title="Deprem Detay"
+        class="earthquake-detail-modal"
         @close="closeEarthquakeDetailModalHandler"
       >
-        <DetailTable :data="data" />
-        <EarthquakesChart
-          v-if="allTimeData?.length"
-          :magnitude-val="getMagnitudeVal"
-          :all-time-data="allTimeData"
-          :width="chartStyle.modal.width"
-          :height="140"
-          :is-has-grid="true"
-          :active-earthquake="data"
-        />
+        <template v-slot:content>
+          <div id="detail_content">
+            <DetailTable :data="data" />
+            <EarthquakesChart
+              v-if="allTimeData?.length"
+              :magnitude-val="getMagnitudeVal"
+              :all-time-data="allTimeData"
+              :width="chartStyle.modal.width"
+              :height="140"
+              :is-has-grid="true"
+              :active-earthquake="data"
+            />
+          </div>
+        </template>
+        <template v-slot:footer>
+          <button class="share-btn" @click="share">
+            {{ isMobile() ? "Paylaş" : "İndir" }}
+          </button>
+        </template>
       </BaseModal>
       <div
         class="earthquake-item__detail-icon"
@@ -104,6 +116,8 @@ import EarthquakeInterface from "~~/interfaces/earthquake.interface";
 import { magnitudeLevels } from "~~/constants/magnitude.constants";
 import { isMobile } from "~~/utils/screen.util";
 import { clearTurkishChars } from "~~/utils/string.util";
+import * as htmlToImage from "html-to-image";
+import download from "downloadjs";
 interface Props {
   data: EarthquakeInterface;
   allTimeData: Array<EarthquakeInterface> | undefined;
@@ -159,6 +173,24 @@ const changePageTitle = (val: string) => {
   document
     .querySelector('meta[name="description"]')
     ?.setAttribute("content", val + " " + config.public.appDescription);
+};
+const share = () => {
+  const elem = document.getElementById("detail_content");
+  htmlToImage.toBlob(elem).then(function (dataBlob) {
+    if (!dataBlob) return;
+    if (navigator && navigator.share && isMobile()) {
+      navigator.share({
+        title: `${data.Region.City} + ' ' + ${data.Region.District} Depremi}`,
+        text: "Son Deprem ve Tarihsel Deprem Grafiği",
+        files: [dataBlob],
+      });
+    } else {
+      download(
+        dataBlob,
+        `${data.Region.City} ${data.Region.District} Depremi.png`
+      );
+    }
+  });
 };
 </script>
 <style lang="scss" scoped>
@@ -314,6 +346,24 @@ const changePageTitle = (val: string) => {
         strong {
           color: $dark;
         }
+      }
+    }
+  }
+  .earthquake-detail-modal {
+    :deep(.modal__content) {
+      justify-content: center;
+      #detail_content {
+        background-color: $white;
+        width: 100%;
+      }
+    }
+    :deep(.modal__footer) {
+      .share-btn {
+        border: none;
+        background-color: $dark;
+        padding: 7px 20px;
+        color: $white;
+        border-radius: 3px;
       }
     }
   }
