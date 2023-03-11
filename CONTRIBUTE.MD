@@ -11,3 +11,10 @@
 ### PageSpeed Insights
 
 [PageSpeed Insights](https://pagespeed.web.dev/report?url=https%3A%2F%2Fzelzele.io%2F)
+
+### Installation
+
+- `git clone https://github.com/ahmetilhn/zelzele.io.git`
+- `cd zelzele.io`
+- `yarn install`
+- `yarn dev`
