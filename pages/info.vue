@@ -71,6 +71,13 @@
     <div class="info__contact">
       <h4>Proje Hakkında</h4>
       <p>
+        <strong
+          >Bu proje sadece www.zelzele.io adresinden yayınlanmıştır. Projenin
+          kopyalandığı diğer sitelerin www.zelzele.io ile hiç bir alakası
+          yoktur.</strong
+        >
+      </p>
+      <p>
         Herhangi bir kar amacı gütmeden oluşturulan bu proje Türkiye'de sürekli
         gerçekleşen depremlerin analiz, inceleme ve karşılaştırma amaçlarına
         hizmet etmektedir. Proje yayında olduğu sürece amacından kopmayacaktır.

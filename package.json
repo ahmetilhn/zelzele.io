@@ -2,6 +2,7 @@
   "name": "zelzele.io",
   "version": "1.4.0",
   "private": true,
+  "license": "APACHE 2.0",
   "author": {
     "name": "Ahmet ilhan",
     "email": "ahmetilhan.dev@gmail.com",
