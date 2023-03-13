@@ -30,7 +30,13 @@
 .header {
   width: 100%;
   padding: $padding-one;
-  border-bottom: 1px solid $dark;
+  box-shadow: 0 0 6px 2px transparentize($dark,.8);
+  position: sticky;
+  height: 60px;
+  top: 0;
+  z-index: 99;
+  background: #fff;
+
   @include small-device {
     padding: calc($padding-one / 3) $padding-one;
     border-color: $gray-three;

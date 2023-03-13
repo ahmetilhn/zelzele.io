@@ -133,6 +133,11 @@ useHead({
   padding: 0 $padding-one;
   width: 100%;
   margin-top: 40px;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-inline:auto;
   p {
     margin-top: 20px;
     font-size: 16px;

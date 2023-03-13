@@ -1,118 +1,121 @@
 <template>
   <article class="earthquake-item" :class="getMagnitudeVal" horizontal-center>
-    <NuxtLink
-      :to="{
+    <section class="earthquake-item__inner">
+      <NuxtLink
+          :to="{
         query: {
           city: clearTurkishChars(data.Region.City),
         },
       }"
-      :title="data.Region.City + ' ' + data.Region.District + ' deprem'"
-      class="earthquake-item__left"
-      horizontal-center
-      @click="changePageTitle(data.Region.City)"
-    >
-      <h3
-        class="magnitude"
-        :title="
+          :title="data.Region.City + ' ' + data.Region.District + ' deprem'"
+          class="earthquake-item__left"
+          horizontal-center
+          @click="changePageTitle(data.Region.City)"
+      >
+        <h3
+            class="magnitude"
+            :title="
           data.Region.City + ' deprem ' + data.Magnitude + ' büyüklüğünde'
         "
-        :class="getMagnitudeVal"
-        vertical-center
-      >
-        {{ data.Magnitude }}
-      </h3>
-      <div class="content" vertical-center>
-        <h2 class="city" :title="data.Region.City + ' deprem'">
-          {{ data.Region.City }}
-        </h2>
-        <h4 class="district">{{ data.Region.District }}</h4>
-        <h6 class="short-detail">
-          {{ data.Depth }} km,
-          <strong>{{ dateFromNow }}</strong>
-        </h6>
+            :class="getMagnitudeVal"
+            vertical-center
+        >
+          {{ data.Magnitude }}
+        </h3>
+        <div class="content" vertical-center>
+          <h2 class="city" :title="data.Region.City + ' deprem'">
+            {{ data.Region.City }}
+          </h2>
+          <h4 class="district">{{ data.Region.District }}</h4>
+          <h6 class="short-detail">
+            {{ data.Depth }} km,
+            <strong>{{ dateFromNow }}</strong>
+          </h6>
+        </div>
+      </NuxtLink>
+      <div class="earthquake-item__right">
+        <ClientOnly>
+          <EarthquakesChart
+              v-if="allTimeData?.length"
+              :magnitude-val="getMagnitudeVal"
+              :all-time-data="allTimeData"
+              :width="chartStyle.listing.width"
+              :height="chartStyle?.listing.height"
+              :is-has-grid="false"
+              :active-earthquake="data"
+              @open-chart-detail-modal="openChartDetailModalHandler"
+          />
+        </ClientOnly>
       </div>
-    </NuxtLink>
-    <div class="earthquake-item__right">
       <ClientOnly>
-        <EarthquakesChart
-          v-if="allTimeData?.length"
-          :magnitude-val="getMagnitudeVal"
-          :all-time-data="allTimeData"
-          :width="chartStyle.listing.width"
-          :height="chartStyle?.listing.height"
-          :is-has-grid="false"
-          :active-earthquake="data"
-          @open-chart-detail-modal="openChartDetailModalHandler"
-        />
-      </ClientOnly>
-    </div>
-    <ClientOnly>
-      <BaseModal
-        v-if="isChartDetailModalVisible"
-        :title="data.Region.City + ' Deprem Grafiği'"
-        class="chart-detail-modal"
-        :is-close-icon-visible="true"
-        :is-snapshot-loading="false"
-        @close="closeChartDetailModalHandler"
-      >
-        <template v-slot:content>
-          <p>
-            Bu grafik ilki
-            <strong>{{ $dayjs(allTimeData[0].Date).fromNow(true) }} </strong>
-            önce olan
-            <strong>{{ allTimeData?.length }}</strong> deprem verisiyle
-            oluşturulmuştur.
-          </p>
-          <EarthquakesChart
-            :magnitude-val="getMagnitudeVal"
-            :all-time-data="allTimeData"
-            :width="chartStyle.modal.width"
-            :height="150"
-            :is-has-grid="true"
-            :active-earthquake="data"
-            @open-chart-detail-modal="openChartDetailModalHandler"
-          />
-        </template>
-      </BaseModal>
-      <BaseModal
-        v-if="isEarthquakeDetailModalVisible"
-        title="Deprem Detay"
-        class="earthquake-detail-modal"
-        @close="closeEarthquakeDetailModalHandler"
-        :is-close-icon-visible="!isSnapshotLoading"
-        :is-snapshot-loading="isSnapshotLoading"
-      >
-        <template v-slot:content>
-          <DetailTable :data="data" />
-          <EarthquakesChart
-            v-if="allTimeData?.length"
-            :magnitude-val="getMagnitudeVal"
-            :all-time-data="allTimeData"
-            :width="chartStyle.modal.width"
-            :height="140"
-            :is-has-grid="true"
-            :active-earthquake="data"
-          />
-          <span class="marker" v-if="isSnapshotLoading"
+        <BaseModal
+            v-if="isChartDetailModalVisible"
+            :title="data.Region.City + ' Deprem Grafiği'"
+            class="chart-detail-modal"
+            :is-close-icon-visible="true"
+            :is-snapshot-loading="false"
+            @close="closeChartDetailModalHandler"
+        >
+          <template v-slot:content>
+            <p>
+              Bu grafik ilki
+              <strong>{{ $dayjs(allTimeData[0].Date).fromNow(true) }} </strong>
+              önce olan
+              <strong>{{ allTimeData?.length }}</strong> deprem verisiyle
+              oluşturulmuştur.
+            </p>
+            <EarthquakesChart
+                :magnitude-val="getMagnitudeVal"
+                :all-time-data="allTimeData"
+                :width="chartStyle.modal.width"
+                :height="150"
+                :is-has-grid="true"
+                :active-earthquake="data"
+                @open-chart-detail-modal="openChartDetailModalHandler"
+            />
+          </template>
+        </BaseModal>
+        <BaseModal
+            v-if="isEarthquakeDetailModalVisible"
+            title="Deprem Detay"
+            class="earthquake-detail-modal"
+            @close="closeEarthquakeDetailModalHandler"
+            :is-close-icon-visible="!isSnapshotLoading"
+            :is-snapshot-loading="isSnapshotLoading"
+        >
+          <template v-slot:content>
+            <DetailTable :data="data" />
+            <EarthquakesChart
+                v-if="allTimeData?.length"
+                :magnitude-val="getMagnitudeVal"
+                :all-time-data="allTimeData"
+                :width="chartStyle.modal.width"
+                :height="140"
+                :is-has-grid="true"
+                :active-earthquake="data"
+            />
+            <span class="marker" v-if="isSnapshotLoading"
             >Bu görsel <strong><u>www.zelzele.io</u></strong> sitesinden
             alınmıştır.</span
-          >
-        </template>
-        <template v-if="!isSnapshotLoading" v-slot:footer>
-          <button class="share-btn" @click="share">
-            {{ isMobile() ? "Paylaş" : "İndir" }}
-          </button>
-        </template>
-      </BaseModal>
-      <div
-        class="earthquake-item__detail-icon"
-        vertical-center
-        @click="openEarthquakeDetailModal"
-      >
-        <img src="@/assets/svg/eye.svg" alt="Detail modal icon" />
-      </div>
-      <Loader v-if="isSnapshotLoading" />
-    </ClientOnly>
+            >
+          </template>
+          <template v-if="!isSnapshotLoading" v-slot:footer>
+            <button class="share-btn" @click="share">
+              {{ isMobile() ? "Paylaş" : "İndir" }}
+            </button>
+          </template>
+        </BaseModal>
+        <div
+            class="earthquake-item__detail-icon"
+            vertical-center
+            @click="openEarthquakeDetailModal"
+        >
+          <img src="@/assets/svg/eye.svg" alt="Detail modal icon" />
+        </div>
+        <Loader v-if="isSnapshotLoading" />
+      </ClientOnly>
+    </section>
+
   </article>
 </template>
 <script setup lang="ts">
@@ -228,13 +231,21 @@ const share = async () => {
 .earthquake-item {
   width: 100%;
   height: 130px;
-  justify-content: space-between;
-  margin: 10px 0;
+  justify-content: center;
   border-radius: 10px;
   position: relative;
+  padding-inline: 10px;
   @include small-device {
     margin: 5px 0;
     height: 100px;
+  }
+
+  .earthquake-item__inner{
+    width: 100%;
+    max-width: 800px;
+    position: relative;
+    display: flex;
+    align-items: center;justify-content: space-between;
   }
   &--last {
     border-width: 1px;
@@ -258,15 +269,25 @@ const share = async () => {
     }
   }
   &.little {
-    background: linear-gradient(90deg, $white 0%, $gray-one 100%);
+    background: linear-gradient(90deg, transparentize($gray-one,.8) 0%,
+        transparentize($gray-one,.5) 40%,
+        transparentize($gray-one,.5) 60%,
+        transparentize($gray-one,.8) 100%);
+
     border-color: $gray-three;
   }
   &.medium {
-    background: linear-gradient(90deg, $white 0%, $orange-light 100%);
+    background: linear-gradient(90deg, transparentize($orange-light,.9) 0%,
+        transparentize($orange-light,.6) 40%,
+        transparentize($orange-light,.6) 60%,
+        transparentize($orange-light,.9) 100%);
     border-color: $orange;
   }
   &.much {
-    background: linear-gradient(90deg, $white 0%, $red-light 100%);
+    background: linear-gradient(90deg, transparentize($red-light,.8) 0%,
+        transparentize($red-light,.5) 40%,
+        transparentize($red-light,.5) 60%,
+        transparentize($red-light,.8) 100%);
     border-color: $red;
   }
   &__left {
@@ -285,16 +306,19 @@ const share = async () => {
       font-weight: bold;
       border-radius: 10px;
       &.little {
-        background-color: $gray-one;
+        transition: 1s;
         color: $dark;
+        box-shadow: 0 0 11px 0 transparentize($dark,.7);
       }
       &.medium {
-        background-color: $orange-light;
+        transition: 1s;
         color: $orange;
+        box-shadow: 0 0 11px 0 transparentize($orange,.7);
       }
       &.much {
-        background-color: $red-light;
+        transition: 1s;
         color: $red;
+        box-shadow: 0 0 11px 0 transparentize($red,.7);
       }
     }
     .content {
