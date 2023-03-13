@@ -33,3 +33,7 @@ $extra-large: 1400px;
     @content;
   }
 }
+
+@function colorOpacity($color,$opacity:1) {
+  @return rgba($color,$opacity)
+}

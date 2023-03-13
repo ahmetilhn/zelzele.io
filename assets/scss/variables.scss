@@ -1,14 +1,16 @@
-$dark: #273251;
-$gray-one: #e7eaf4;
+$dark: #5e6676;
+$gray-one: #d1d5db;
 $gray-two: #a2a9c0;
 $gray-three: #6a7492;
 $white: #fff;
 
+
+
 $max-width-one: 800px;
 $padding-one: 10px;
-$red: rgb(208, 0, 0);
-$orange: rgb(212, 138, 0);
-$green: rgb(0, 185, 0);
-$red-light: rgba(255, 0, 0, 0.188);
-$orange-light: rgba(255, 165, 0, 0.188);
-$green-light: rgba(0, 210, 0, 0.188);
+$red: #fca5a5;
+$orange: #fb923c;
+$green: #28a745;
+$red-light: transparentize($red,.1);
+$orange-light: transparentize($orange,.1);
+$green-light: transparentize($green,.1);
