@@ -20,7 +20,7 @@
             :class="getMagnitudeVal"
             vertical-center
         >
-          {{ data.Magnitude }}
+          {{ data.Magnitude.toFixed(1) }}
         </h3>
         <div class="content" vertical-center>
           <h2 class="city" :title="data.Region.City + ' deprem'">
