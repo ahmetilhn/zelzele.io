@@ -133,7 +133,7 @@ useHead({
   padding: 0 $padding-one;
   width: 100%;
   margin-top: 40px;
-  max-width: 800px;
+  max-width: $max-width-one;
   display: flex;
   flex-direction: column;
   align-items: center;

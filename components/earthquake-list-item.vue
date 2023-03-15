@@ -1,6 +1,6 @@
 <template>
   <article class="earthquake-item" :class="getMagnitudeVal" horizontal-center>
-    <section class="earthquake-item__inner">
+    <section class="earthquake-item__inner" horizontal-center>
       <NuxtLink
           :to="{
         query: {
@@ -242,10 +242,9 @@ const share = async () => {
 
   .earthquake-item__inner{
     width: 100%;
-    max-width: 800px;
+    max-width: $max-width-one;
     position: relative;
-    display: flex;
-    align-items: center;justify-content: space-between;
+    justify-content: space-between;
   }
   &--last {
     border-width: 1px;
@@ -371,7 +370,7 @@ const share = async () => {
   &__detail-icon {
     position: absolute;
     right: 0;
-    top: 0;
+    top: -10px;
     cursor: pointer;
     z-index: 1;
     width: 50px;
