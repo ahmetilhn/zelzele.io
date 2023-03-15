@@ -134,9 +134,6 @@ useHead({
   width: 100%;
   margin-top: 40px;
   max-width: $max-width-one;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
   margin-inline:auto;
   p {
     margin-top: 20px;
