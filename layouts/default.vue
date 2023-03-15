@@ -41,7 +41,6 @@ nuxtApp.hook("page:finish", () => {
   }
   &__content {
     width: 100%;
-    max-width: $max-width-one;
   }
   .product-hunt-widget {
     position: fixed;

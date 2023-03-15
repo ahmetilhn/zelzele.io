@@ -30,8 +30,13 @@ const getAllTimeDataForCustomEQ = (
 <style lang="scss" scoped>
 .earthquakes-list {
   width: 100%;
+
+  row-gap: 16px;
+  margin-block: 16px;
+  position: relative;
   @include medium-device {
     padding: $padding-one;
+    row-gap: 8px;
   }
 }
 </style>

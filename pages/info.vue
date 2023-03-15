@@ -133,6 +133,8 @@ useHead({
   padding: 0 $padding-one;
   width: 100%;
   margin-top: 40px;
+  max-width: $max-width-one;
+  margin-inline:auto;
   p {
     margin-top: 20px;
     font-size: 16px;

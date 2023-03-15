@@ -29,10 +29,17 @@
 <style lang="scss" scoped>
 .header {
   width: 100%;
-  padding: $padding-one;
-  border-bottom: 1px solid $dark;
+  padding: 0 $padding-one;
+  box-shadow: 0 0 6px 2px transparentize($dark,.8);
+  position: sticky;
+  height: 60px;
+  top: 0;
+  z-index: 99;
+  background: #fff;
+
   @include small-device {
-    padding: calc($padding-one / 3) $padding-one;
+    padding: 0 $padding-one;
+    height: 40px;
     border-color: $gray-three;
   }
   &__content {
