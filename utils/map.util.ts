@@ -12,7 +12,7 @@ const injectCode = (): void => {
       streetViewControl: false,
       mapTypeControl: false,
       scaleControl: false,
-      scrollwheel: false,
+      scrollwheel: true,
       minZoom: 6.6,
       fullscreenControl: false,
       zoomControl: isMobile() ? false : true,
