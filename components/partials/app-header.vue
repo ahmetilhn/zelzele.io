@@ -74,10 +74,15 @@ const clearFilter = () => {
     }
     .filter {
       height: 32px;
+      width: 32px;
       cursor: pointer;
+      @include small-device {
+        width: 26px;
+        height: 26px;
+      }
       svg {
-        height: 32px;
-        width: 32px;
+        height: 100%;
+        width: 100%;
       }
     }
   }
