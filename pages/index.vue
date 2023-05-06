@@ -9,19 +9,48 @@ import EarthquakeInterface from "~~/interfaces/earthquake.interface";
 import { useEarthquakesStore } from "~~/store/earthquakes";
 import { capitalizeFirstLetter } from "~~/utils/string.util";
 const earthquakesStore = useEarthquakesStore();
-const { setAllEarthquakes, setLastEarthquakes } = earthquakesStore;
+const { setAllEarthquakes, setLastEarthquakes, allEarthquakes } =
+  earthquakesStore;
 const route = useRoute();
 const config = useRuntimeConfig();
 await useAsyncData(async () => {
+  let filteredList: Array<EarthquakeInterface> = [];
   const _allEarthquakes = await $fetch<Promise<Array<EarthquakeInterface>>>(
     `/api/earthquakes`,
     {
       method: "GET",
     }
   );
-  setLastEarthquakes(JSON.parse(JSON.stringify(_allEarthquakes)).splice(0, 30));
+  if (route.query.city) {
+    filteredList = JSON.parse(JSON.stringify(_allEarthquakes)).filter(
+      (item: EarthquakeInterface) => {
+        return clearTurkishChars(item.Region.City) === route.query.city;
+      }
+    );
+
+    setLastEarthquakes(filteredList);
+  } else {
+    setLastEarthquakes(
+      JSON.parse(JSON.stringify(_allEarthquakes)).splice(0, 30)
+    );
+  }
   setAllEarthquakes(_allEarthquakes);
 });
+watch(
+  () => route.query.city,
+  async (val) => {
+    if (val) {
+      const filteredList = allEarthquakes.filter((item) => {
+        return clearTurkishChars(item.Region.City) === val;
+      });
+      setLastEarthquakes(filteredList);
+    } else {
+      setLastEarthquakes(
+        JSON.parse(JSON.stringify(allEarthquakes)).splice(0, 30)
+      );
+    }
+  }
+);
 if (route.query.city) {
   useHead({
     title:

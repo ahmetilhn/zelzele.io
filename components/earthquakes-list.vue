@@ -1,14 +1,20 @@
 <template>
   <div class="earthquakes-list" vertical-center>
-    <EarthquakeListItem
-      v-for="(item, key) in lastEarthquakes"
-      :key="key"
-      :data="item"
-      :all-time-data="getAllTimeDataForCustomEQ(item.Region.City)"
-      :class="{
-        'earthquake-item--last': key === 0,
-      }"
-    />
+    <template v-if="lastEarthquakes.length > 0">
+      <EarthquakeListItem
+        v-for="(item, key) in lastEarthquakes"
+        :key="key"
+        :data="item"
+        :all-time-data="getAllTimeDataForCustomEQ(item.Region.City)"
+        :class="{
+          'earthquake-item--last': key === 0,
+        }"
+      />
+    </template>
+    <div v-else class="earthquakes-list--not-result" vertical-center>
+      <img src="../assets/img/happy.svg" alt="" />
+      <span>Çok şükür deprem bulunamadı 🙏🏻</span>
+    </div>
   </div>
 </template>
 <script setup lang="ts">
@@ -37,6 +43,13 @@ const getAllTimeDataForCustomEQ = (
   @include medium-device {
     padding: $padding-one;
     row-gap: 8px;
+  }
+  &--not-result {
+    margin-top: 200px;
+    img {
+      width: 50px;
+      margin-bottom: 20px;
+    }
   }
 }
 </style>
