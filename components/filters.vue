@@ -115,6 +115,7 @@ onMounted(() => {
         }
         input {
           appearance: none;
+          display: none;
           &:checked + label {
             background-color: $dark;
             color: $white;
