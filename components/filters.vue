@@ -2,7 +2,7 @@
   <ClientOnly>
     <BaseModal
       v-if="isFilterModalVisible"
-      title="Filtre"
+      title="Filtreler"
       class="filter-modal"
       :is-close-icon-visible="true"
       :is-snapshot-loading="false"
