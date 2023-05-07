@@ -145,7 +145,8 @@ onMounted(() => {
     .apply-btn {
       border: none;
       background-color: $dark;
-      padding: 7px 20px;
+      padding: 7px 24px;
+      margin-top: 10px;
       color: $white;
       border-radius: 3px;
     }

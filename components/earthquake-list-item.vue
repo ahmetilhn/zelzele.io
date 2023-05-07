@@ -2,23 +2,23 @@
   <article class="earthquake-item" :class="getMagnitudeVal" horizontal-center>
     <section class="earthquake-item__inner" horizontal-center>
       <NuxtLink
-          :to="{
-        query: {
-          city: clearTurkishChars(data.Region.City),
-        },
-      }"
-          :title="data.Region.City + ' ' + data.Region.District + ' deprem'"
-          class="earthquake-item__left"
-          horizontal-center
-          @click="changePageTitle(data.Region.City)"
+        :to="{
+          query: {
+            city: clearTurkishChars(data.Region.City),
+          },
+        }"
+        :title="data.Region.City + ' ' + data.Region.District + ' deprem'"
+        class="earthquake-item__left"
+        horizontal-center
+        @click="changePageTitle(data.Region.City)"
       >
         <h3
-            class="magnitude"
-            :title="
-          data.Region.City + ' deprem ' + data.Magnitude + ' büyüklüğünde'
-        "
-            :class="getMagnitudeVal"
-            vertical-center
+          class="magnitude"
+          :title="
+            data.Region.City + ' deprem ' + data.Magnitude + ' büyüklüğünde'
+          "
+          :class="getMagnitudeVal"
+          vertical-center
         >
           {{ data.Magnitude.toFixed(1) }}
         </h3>
@@ -36,25 +36,25 @@
       <div class="earthquake-item__right">
         <ClientOnly>
           <EarthquakesChart
-              v-if="allTimeData?.length"
-              :magnitude-val="getMagnitudeVal"
-              :all-time-data="allTimeData"
-              :width="chartStyle.listing.width"
-              :height="chartStyle?.listing.height"
-              :is-has-grid="false"
-              :active-earthquake="data"
-              @open-chart-detail-modal="openChartDetailModalHandler"
+            v-if="allTimeData?.length"
+            :magnitude-val="getMagnitudeVal"
+            :all-time-data="allTimeData"
+            :width="chartStyle.listing.width"
+            :height="chartStyle?.listing.height"
+            :is-has-grid="false"
+            :active-earthquake="data"
+            @open-chart-detail-modal="openChartDetailModalHandler"
           />
         </ClientOnly>
       </div>
       <ClientOnly>
         <BaseModal
-            v-if="isChartDetailModalVisible"
-            :title="data.Region.City + ' Deprem Grafiği'"
-            class="chart-detail-modal"
-            :is-close-icon-visible="true"
-            :is-snapshot-loading="false"
-            @close="closeChartDetailModalHandler"
+          v-if="isChartDetailModalVisible"
+          :title="data.Region.City + ' Deprem Grafiği'"
+          class="chart-detail-modal"
+          :is-close-icon-visible="true"
+          :is-snapshot-loading="false"
+          @close="closeChartDetailModalHandler"
         >
           <template v-slot:content>
             <p>
@@ -65,38 +65,38 @@
               oluşturulmuştur.
             </p>
             <EarthquakesChart
-                :magnitude-val="getMagnitudeVal"
-                :all-time-data="allTimeData"
-                :width="chartStyle.modal.width"
-                :height="150"
-                :is-has-grid="true"
-                :active-earthquake="data"
-                @open-chart-detail-modal="openChartDetailModalHandler"
+              :magnitude-val="getMagnitudeVal"
+              :all-time-data="allTimeData"
+              :width="chartStyle.modal.width"
+              :height="150"
+              :is-has-grid="true"
+              :active-earthquake="data"
+              @open-chart-detail-modal="openChartDetailModalHandler"
             />
           </template>
         </BaseModal>
         <BaseModal
-            v-if="isEarthquakeDetailModalVisible"
-            title="Deprem Detay"
-            class="earthquake-detail-modal"
-            @close="closeEarthquakeDetailModalHandler"
-            :is-close-icon-visible="!isSnapshotLoading"
-            :is-snapshot-loading="isSnapshotLoading"
+          v-if="isEarthquakeDetailModalVisible"
+          title="Deprem Detay"
+          class="earthquake-detail-modal"
+          @close="closeEarthquakeDetailModalHandler"
+          :is-close-icon-visible="!isSnapshotLoading"
+          :is-snapshot-loading="isSnapshotLoading"
         >
           <template v-slot:content>
             <DetailTable :data="data" />
             <EarthquakesChart
-                v-if="allTimeData?.length"
-                :magnitude-val="getMagnitudeVal"
-                :all-time-data="allTimeData"
-                :width="chartStyle.modal.width"
-                :height="140"
-                :is-has-grid="true"
-                :active-earthquake="data"
+              v-if="allTimeData?.length"
+              :magnitude-val="getMagnitudeVal"
+              :all-time-data="allTimeData"
+              :width="chartStyle.modal.width"
+              :height="140"
+              :is-has-grid="true"
+              :active-earthquake="data"
             />
             <span class="marker" v-if="isSnapshotLoading"
-            >Bu görsel <strong><u>www.zelzele.io</u></strong> sitesinden
-            alınmıştır.</span
+              >Bu görsel <strong><u>www.zelzele.io</u></strong> sitesinden
+              alınmıştır.</span
             >
           </template>
           <template v-if="!isSnapshotLoading" v-slot:footer>
@@ -106,16 +106,15 @@
           </template>
         </BaseModal>
         <div
-            class="earthquake-item__detail-icon"
-            vertical-center
-            @click="openEarthquakeDetailModal"
+          class="earthquake-item__detail-icon"
+          vertical-center
+          @click="openEarthquakeDetailModal"
         >
           <img src="@/assets/svg/eye.svg" alt="Detail modal icon" />
         </div>
         <Loader v-if="isSnapshotLoading" />
       </ClientOnly>
     </section>
-
   </article>
 </template>
 <script setup lang="ts">
@@ -240,7 +239,7 @@ const share = async () => {
     height: 100px;
   }
 
-  .earthquake-item__inner{
+  .earthquake-item__inner {
     width: 100%;
     max-width: $max-width-one;
     position: relative;
@@ -268,25 +267,34 @@ const share = async () => {
     }
   }
   &.little {
-    background: linear-gradient(90deg, transparentize($gray-one,.8) 0%,
-        transparentize($gray-one,.5) 40%,
-        transparentize($gray-one,.5) 60%,
-        transparentize($gray-one,.8) 100%);
+    background: linear-gradient(
+      90deg,
+      transparentize($gray-one, 0.8) 0%,
+      transparentize($gray-one, 0.5) 40%,
+      transparentize($gray-one, 0.5) 60%,
+      transparentize($gray-one, 0.8) 100%
+    );
 
     border-color: $gray-three;
   }
   &.medium {
-    background: linear-gradient(90deg, transparentize($orange-light,.9) 0%,
-        transparentize($orange-light,.6) 40%,
-        transparentize($orange-light,.6) 60%,
-        transparentize($orange-light,.9) 100%);
+    background: linear-gradient(
+      90deg,
+      transparentize($orange-light, 0.9) 0%,
+      transparentize($orange-light, 0.6) 40%,
+      transparentize($orange-light, 0.6) 60%,
+      transparentize($orange-light, 0.9) 100%
+    );
     border-color: $orange;
   }
   &.much {
-    background: linear-gradient(90deg, transparentize($red-light,.8) 0%,
-        transparentize($red-light,.5) 40%,
-        transparentize($red-light,.5) 60%,
-        transparentize($red-light,.8) 100%);
+    background: linear-gradient(
+      90deg,
+      transparentize($red-light, 0.8) 0%,
+      transparentize($red-light, 0.5) 40%,
+      transparentize($red-light, 0.5) 60%,
+      transparentize($red-light, 0.8) 100%
+    );
     border-color: $red;
   }
   &__left {
@@ -307,17 +315,17 @@ const share = async () => {
       &.little {
         transition: 1s;
         color: $dark;
-        box-shadow: 0 0 11px 0 transparentize($dark,.7);
+        box-shadow: 0 0 11px 0 transparentize($dark, 0.7);
       }
       &.medium {
         transition: 1s;
         color: $orange;
-        box-shadow: 0 0 11px 0 transparentize($orange,.7);
+        box-shadow: 0 0 11px 0 transparentize($orange, 0.7);
       }
       &.much {
         transition: 1s;
         color: $red;
-        box-shadow: 0 0 11px 0 transparentize($red,.7);
+        box-shadow: 0 0 11px 0 transparentize($red, 0.7);
       }
     }
     .content {
@@ -417,7 +425,8 @@ const share = async () => {
       .share-btn {
         border: none;
         background-color: $dark;
-        padding: 7px 20px;
+        padding: 7px 24px;
+        margin-top: 10px;
         color: $white;
         border-radius: 3px;
       }
