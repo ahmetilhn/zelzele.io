@@ -109,8 +109,8 @@ onMounted(() => {
           border-radius: 4px;
           color: inherit;
           @include small-device {
-            width: 36px;
-            height: 36px;
+            width: 33px;
+            height: 33px;
           }
         }
         input {
