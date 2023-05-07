@@ -1,9 +1,11 @@
 <template>
   <div class="index" vertical-center>
     <EarthquakesList />
+    <Filters />
   </div>
 </template>
 <script setup lang="ts">
+import Filters from "~~/components/filters.vue";
 import EarthquakesList from "~~/components/earthquakes-list.vue";
 import EarthquakeInterface from "~~/interfaces/earthquake.interface";
 import { useEarthquakesStore } from "~~/store/earthquakes";
@@ -14,20 +16,26 @@ const { setAllEarthquakes, setLastEarthquakes, allEarthquakes } =
 const route = useRoute();
 const config = useRuntimeConfig();
 await useAsyncData(async () => {
-  let filteredList: Array<EarthquakeInterface> = [];
   const _allEarthquakes = await $fetch<Promise<Array<EarthquakeInterface>>>(
     `/api/earthquakes`,
     {
       method: "GET",
     }
   );
-  if (route.query.city) {
-    filteredList = JSON.parse(JSON.stringify(_allEarthquakes)).filter(
-      (item: EarthquakeInterface) => {
-        return clearTurkishChars(item.Region.City) === route.query.city;
-      }
+  if (Object.keys(route.query).length > 0) {
+    let filteredList: Array<EarthquakeInterface> = JSON.parse(
+      JSON.stringify(_allEarthquakes)
     );
-
+    if (route.query.city) {
+      filteredList = filteredList.filter((item: EarthquakeInterface) => {
+        return clearTurkishChars(item.Region.City) === route.query.city;
+      });
+    }
+    if (route.query.magnitude) {
+      filteredList = filteredList.filter((item: EarthquakeInterface) => {
+        return item.Magnitude > Number(route.query.magnitude);
+      });
+    }
     setLastEarthquakes(filteredList);
   } else {
     setLastEarthquakes(
@@ -37,12 +45,20 @@ await useAsyncData(async () => {
   setAllEarthquakes(_allEarthquakes);
 });
 watch(
-  () => route.query.city,
-  async (val) => {
+  () => route.query,
+  (val) => {
     if (val) {
-      const filteredList = allEarthquakes.filter((item) => {
-        return clearTurkishChars(item.Region.City) === val;
-      });
+      let filteredList = JSON.parse(JSON.stringify(allEarthquakes));
+      if (val.city) {
+        filteredList = filteredList.filter((item: EarthquakeInterface) => {
+          return clearTurkishChars(item.Region.City) === val.city;
+        });
+      }
+      if (val.magnitude) {
+        filteredList = filteredList.filter((item: EarthquakeInterface) => {
+          return item.Magnitude > Number(val.magnitude);
+        });
+      }
       setLastEarthquakes(filteredList);
     } else {
       setLastEarthquakes(
