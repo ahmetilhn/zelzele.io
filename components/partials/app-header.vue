@@ -10,7 +10,7 @@
           />
         </NuxtLink>
       </div>
-      <div class="filter" @click="openFilterModal">
+      <div v-if="isListingPage" class="filter" @click="openFilterModal">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none">
           <path
             opacity="0.2"
@@ -27,7 +27,11 @@
   </header>
 </template>
 <script setup lang="ts">
+const route = useRoute();
 import { useFilterStore } from "~~/store/filters";
+const isListingPage = computed(() => {
+  return route.name === "index";
+});
 const filterStore = useFilterStore();
 const { setFilterModalVisible } = filterStore;
 const openFilterModal = () => {
