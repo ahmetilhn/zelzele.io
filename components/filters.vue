@@ -9,6 +9,12 @@
       @close="closeHandler"
     >
       <template v-slot:content>
+        <span
+          v-if="filterData.city || filterData.magnitude"
+          @click="clear"
+          class="clear-btn"
+          >Temizle</span
+        >
         <div class="magnitude" vertical-center>
           <span class="magnitude__title">Büyüklük</span>
           <div class="magnitude__items" horizontal-center>
@@ -80,6 +86,13 @@ const applyFilter = () => {
   });
   setFilterModalVisible(false);
 };
+const clear = () => {
+  filterData.value = {
+    magnitude: "",
+    city: "",
+  };
+  applyFilter();
+};
 onMounted(() => {
   filterData.value.city = route.query.city || "";
   filterData.value.magnitude = route.query.magnitude || "";
@@ -102,6 +115,7 @@ onMounted(() => {
         justify-content: space-between;
         margin-top: 20px;
         label {
+          cursor: pointer;
           text-decoration: none;
           width: 40px;
           height: 40px;
@@ -122,6 +136,14 @@ onMounted(() => {
           }
         }
       }
+    }
+    .clear-btn {
+      display: flex;
+      align-self: flex-end;
+      color: $red;
+      font-size: 15px;
+      text-decoration: underline;
+      cursor: pointer;
     }
     .city {
       width: 100%;
@@ -148,6 +170,7 @@ onMounted(() => {
       padding: 7px 24px;
       margin-top: 10px;
       color: $white;
+      cursor: pointer;
       border-radius: 3px;
     }
   }
