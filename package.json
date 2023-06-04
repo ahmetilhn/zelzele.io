@@ -34,8 +34,7 @@
   },
   "dependencies": {
     "@pinia/nuxt": "^0.4.7",
-    "afad-scraper": "^1.0.2",
-    "cheerio": "^1.0.0-rc.12",
+    "afad-scraper": "1.1.0",
     "dayjs": "^1.11.7",
     "downloadjs": "^1.4.7",
     "html-to-image": "^1.11.11",
